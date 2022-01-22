@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public float jumpPower;
     public float gravity;
     public float lookSensitivity;   // 감도
-    private Vector3 moveDir;
+    private Vector3 moveDir = Vector3.zero;
 
     private CharacterController cc;
     private GameObject playerCamera;
@@ -17,9 +17,6 @@ public class PlayerController : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         playerCamera = GameObject.Find("Main Camera");
-        Debug.Log(Mathf.Clamp(-1, -50, 30));
-        Debug.Log(Mathf.Clamp(0, -50, 30));
-        Debug.Log(Mathf.Clamp(1, -50, 30));
     }
 
     // Update is called once per frame
@@ -31,19 +28,24 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {   
-        // 평면 이동
-        moveDir = transform.TransformDirection(
-            Input.GetAxis("Horizontal") * Vector3.right + Input.GetAxis("Vertical") * Vector3.forward
-        );
-        // moveDir.Normalize();
+        if (cc.isGrounded)
+        {
+            // 평면 이동
+            moveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            moveDir = transform.TransformDirection(moveDir);
+            moveDir *= speed;
 
-        // Jump
-        // if (Input.GetButtonDown("Jump"))
-        // {
-        //     moveDir.y = jumpPower;
-        // }
+            // Jump
+            if (Input.GetButtonDown("Jump"))
+            {
+                moveDir.y = jumpPower;
+            }
+            moveDir.y -= gravity * 0.1f;    // small gravity
+        }
+        
+        moveDir.y -= gravity * Time.deltaTime;
 
-        cc.Move(moveDir * speed * Time.deltaTime);
+        cc.Move(moveDir * Time.deltaTime);
     }
 
     private void Rotate()
