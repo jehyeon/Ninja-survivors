@@ -11,11 +11,13 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDir = Vector3.zero;
 
     private CharacterController cc;
+    private Animator animator;
     private GameObject playerCamera;
-
+    
     void Start()
     {
         cc = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
         playerCamera = GameObject.Find("Main Camera");
     }
 
@@ -27,23 +29,45 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Move()
-    {   
-        if (cc.isGrounded)
-        {
+    {
+        // if (cc.isGrounded)
+        // {
+            float h = Input.GetAxis("Horizontal"); 
+            float v = Input.GetAxis("Vertical");
+
             // 평면 이동
-            moveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            moveDir = new Vector3(h, 0, v);
             moveDir = transform.TransformDirection(moveDir);
-            moveDir *= speed;
+            if (v == 1 && h == 0)
+            {
+                // sprint
+                moveDir *= speed * 2f;
+                Debug.Log(moveDir);   
+            }
+            else
+            {
+                moveDir *= speed;
+                Debug.Log(moveDir);  
+            }
 
             // Jump
             if (Input.GetButtonDown("Jump"))
             {
                 moveDir.y = jumpPower;
             }
-            moveDir.y -= gravity * 0.1f;    // small gravity
-        }
+            // moveDir.y = -1 * gravity * 0.1f;    // small gravity
+
+            // Animator
+            if (h != 0 || v != 0)
+            {
+                animator.SetBool("isMove", true);
+            }
+            
+            animator.SetFloat("MoveX", h);
+            animator.SetFloat("MoveY", v);
+        // }
         
-        moveDir.y -= gravity * Time.deltaTime;
+        // moveDir.y -= gravity * Time.deltaTime;
 
         cc.Move(moveDir * Time.deltaTime);
     }
