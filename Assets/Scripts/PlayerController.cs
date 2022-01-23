@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private CharacterController cc;
     private Animator animator;
     private GameObject playerCamera;
+    private bool isJump;
+    private float jumpingTime = 0f;
     
     void Start()
     {
@@ -25,13 +27,28 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Move();
+        Attack();
         Rotate();
     }
 
     private void Move()
     {
-        // if (cc.isGrounded)
-        // {
+        if (jumpingTime > 0.2f)
+        {
+            animator.SetBool("isRand", false);
+        }
+
+        if (IsGrounded())
+        {
+            if (isJump && jumpingTime > 0.1f)
+            {
+                // 점프 상태에서 ground를 밟게 되면
+                animator.SetBool("isJump", false);
+                animator.SetBool("isRand", true);
+                jumpingTime = 0f;
+                isJump = false;
+            }
+
             float h = Input.GetAxis("Horizontal"); 
             float v = Input.GetAxis("Vertical");
 
@@ -42,12 +59,10 @@ public class PlayerController : MonoBehaviour
             {
                 // sprint
                 moveDir *= speed * 2f;
-                Debug.Log(moveDir);   
             }
             else
             {
                 moveDir *= speed;
-                Debug.Log(moveDir);  
             }
 
             // Jump
@@ -55,19 +70,27 @@ public class PlayerController : MonoBehaviour
             {
                 moveDir.y = jumpPower;
             }
-            // moveDir.y = -1 * gravity * 0.1f;    // small gravity
 
             // Animator
             if (h != 0 || v != 0)
             {
                 animator.SetBool("isMove", true);
             }
-            
+            else
+            {
+                animator.SetBool("isMove", false);
+            }
             animator.SetFloat("MoveX", h);
             animator.SetFloat("MoveY", v);
-        // }
+        }
+        else
+        {
+            jumpingTime += Time.deltaTime;
+            isJump = true;
+            animator.SetBool("isJump", true);
+        }
         
-        // moveDir.y -= gravity * Time.deltaTime;
+        moveDir.y -= gravity * Time.deltaTime;
 
         cc.Move(moveDir * Time.deltaTime);
     }
@@ -88,5 +111,26 @@ public class PlayerController : MonoBehaviour
         }
         float cameraRotationX = Mathf.Clamp(rotate, -50f, 30f);
         playerCamera.GetComponent<PlayerCamera>().Rotate(cameraRotationX);
+    }
+
+    private bool IsGrounded()
+    {
+        RaycastHit hit;
+        Physics.Raycast(this.transform.position, Vector3.down, out hit, .05f);
+        Debug.DrawRay(this.transform.position, Vector3.down * 0.05f);
+        if (hit.transform == null)
+        {
+            return false;
+        }
+
+        return hit.transform.CompareTag("Ground");
+    }
+
+    private void Attack()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            animator.SetTrigger("isAttack");
+        }
     }
 }
