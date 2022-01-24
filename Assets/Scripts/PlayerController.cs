@@ -131,6 +131,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             animator.SetTrigger("isAttack");
+            animator.SetInteger("AttackType", Random.Range(0, 3));
         }
     }
 }
