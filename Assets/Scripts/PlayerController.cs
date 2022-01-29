@@ -116,13 +116,12 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded()
     {
         RaycastHit hit;
-        Physics.Raycast(this.transform.position, Vector3.down, out hit, .05f);
-        Debug.DrawRay(this.transform.position, Vector3.down * 0.05f);
+        Physics.Raycast(this.transform.position, Vector3.down, out hit, .15f);
+        Debug.DrawRay(this.transform.position, Vector3.down * 0.15f);
         if (hit.transform == null)
         {
             return false;
         }
-
         return hit.transform.CompareTag("Ground");
     }
 
