@@ -11,19 +11,4 @@ public class Weapon : Item
         SAD  // Shuriken & Dagger
     }
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    protected void Attack()
-    {
-
-    }
 }

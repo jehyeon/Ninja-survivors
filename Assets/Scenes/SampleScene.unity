@@ -1497,6 +1497,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RatAssassinDefault
       objectReference: {fileID: 0}
+    - target: {fileID: 5007196103531211192, guid: 8b43e6e948f662145886b91d7f72458c, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 5007196103531378072, guid: 8b43e6e948f662145886b91d7f72458c, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1680,6 +1684,18 @@ CapsuleCollider:
   m_Height: 1.72
   m_Direction: 1
   m_Center: {x: 0, y: 0.86, z: 0}
+--- !u!114 &1310643959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310643954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9ce20b44eb3164fb3b76d5aa0d1203, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1333180655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2379,6 +2395,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2023533526 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8127366575794053460, guid: 1a5fd9f05b966cc42b5cd30b783e818c, type: 3}
+  m_PrefabInstance: {fileID: 8197001089507288002}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2023533530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023533526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0749c161c66cf8d4e8c913a9167c1fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8197001089507288002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2386,6 +2419,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8127366575794053460, guid: 1a5fd9f05b966cc42b5cd30b783e818c, type: 3}
+      propertyPath: m_Name
+      value: Weapon
+      objectReference: {fileID: 0}
     - target: {fileID: 8127366576764737765, guid: 1a5fd9f05b966cc42b5cd30b783e818c, type: 3}
       propertyPath: m_RootOrder
       value: 0
