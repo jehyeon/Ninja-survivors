@@ -17,11 +17,11 @@ public class Player : Character
     public float Speed;
     public float JumpPower;
 
-    public float Damage;
+    public int Damage;
     public float CriticalPercent;
     public float DoublePercent;
-    public float AttackSpeed;
-    public float AttackRange;
+    public int AttackSpeed;
+    public int AttackRange;
 
     // Cool time;
     private float hpRecoveryCooltime;
@@ -30,7 +30,6 @@ public class Player : Character
     {
         // temp
         go_weapon = transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).Find("Weapon").gameObject;
-        Debug.Log(go_weapon.name);
 
         // Init
         hpRecoveryCooltime = 0f;
@@ -55,7 +54,8 @@ public class Player : Character
             _stat.CriticalPercent = CriticalPercent;
             _stat.DoublePercent = DoublePercent;
             _stat.AttackSpeed = AttackSpeed;
-            _stat.AttackRange = AttackRange;            
+            _stat.AttackRange = AttackRange;
+            go_weapon.GetComponent<Sword>().UpgradeAttackRange(_stat.AttackRange);        
         }
 
         RecoverHp();

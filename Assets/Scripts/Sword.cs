@@ -6,8 +6,7 @@ public class Sword : Weapon
 {
     private GameObject go_player;
     private Stat stat;
-
-    private int _damage = 5;
+    private BoxCollider _collider;
 
     private void Start()
     {
@@ -19,8 +18,8 @@ public class Sword : Weapon
 
     private void InitCollider()
     {
-        Collider collider = gameObject.AddComponent<BoxCollider>();
-        collider.isTrigger = true;
+        _collider = gameObject.AddComponent<BoxCollider>();
+        _collider.isTrigger = true;
     }
     
     private void GetPlayerObject()
@@ -59,11 +58,21 @@ public class Sword : Weapon
         // 크리티컬
         if (Random.value < stat.CriticalPercent)
         {
-            other.gameObject.GetComponent<Enemy>().GetDamage(_damage * 2);
+            other.gameObject.GetComponent<Enemy>().GetDamage(stat.Damage * 2);
         }
         else
         {
-            other.gameObject.GetComponent<Enemy>().GetDamage(_damage);
+            other.gameObject.GetComponent<Enemy>().GetDamage(stat.Damage);
+        }
+    }
+
+    public void UpgradeAttackRange(int level = 1)
+    {
+        // Level당 20% 씩 범위 증가
+        for (int i = 0; i < level; i++)
+        {
+            _collider.center += new Vector3(0, 0.1f, 0);
+            _collider.size += new Vector3(0, 0.2f, 0);
         }
     }
 }
