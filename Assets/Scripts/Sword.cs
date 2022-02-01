@@ -20,6 +20,7 @@ public class Sword : Weapon
     {
         _collider = gameObject.AddComponent<BoxCollider>();
         _collider.isTrigger = true;
+        _collider.enabled = false;
     }
     
     private void GetPlayerObject()
@@ -28,14 +29,16 @@ public class Sword : Weapon
         go_player = this.gameObject.transform.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.gameObject;
     }
 
-    void ActivateWeapon()
+    public void ActivateWeapon()
     {
         // collider 활성화
+        _collider.enabled = true;
     }
 
-    void DeActivateWeapon()
+    public void DeActivateWeapon()
     {
         // collider 비활성화
+        _collider.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)

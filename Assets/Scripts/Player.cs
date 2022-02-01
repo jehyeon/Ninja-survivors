@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : Character
 {
     public GameObject go_weapon;
+    private Sword sword;
+
     private Animator animator;
 
     private float exp;
@@ -31,11 +33,12 @@ public class Player : Character
     {
         // temp
         go_weapon = transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).Find("Weapon").gameObject;
+        sword = go_weapon.GetComponent<Sword>();
+
+        animator = GetComponent<Animator>();
 
         // Init
         hpRecoveryCooltime = 0f;
-
-        animator = GetComponent<Animator>();
     }
 
     protected override void Update()
@@ -59,10 +62,14 @@ public class Player : Character
             _stat.AttackSpeed = AttackSpeed;
             animator.SetFloat("AttackSpeed", _stat.AttackSpeed);
             _stat.AttackRange = AttackRange;
-            go_weapon.GetComponent<Sword>().UpgradeAttackRange(_stat.AttackRange);        
+            sword.UpgradeAttackRange(_stat.AttackRange);        
         }
 
+        // 자동 회복
         RecoverHp();
+
+        // 공격 시 sword collider 활성화
+        ActivateWeapon();
     }
 
     // About Stat
@@ -102,6 +109,32 @@ public class Player : Character
             // 1초마다 체력 회복
             _stat.Heal(_stat.HpRecovery);
             hpRecoveryCooltime = 0;
+        }
+    }
+
+    // 공격 중인지 확인
+    private bool IsAttacking()
+    {
+        if (animator.GetCurrentAnimatorStateInfo(1).IsName("Attack1") ||
+            animator.GetCurrentAnimatorStateInfo(1).IsName("Attack2") ||
+            animator.GetCurrentAnimatorStateInfo(1).IsName("Attack3") )
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    // 무기 활성화, 비활성화
+    private void ActivateWeapon()
+    {
+        if (IsAttacking())
+        {
+            sword.ActivateWeapon();
+        }
+        else
+        {
+            sword.DeActivateWeapon();
         }
     }
 }
