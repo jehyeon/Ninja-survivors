@@ -14,7 +14,7 @@ public class Stat : MonoBehaviour
     private int _damage;
     private float _criticalPercent;
     private float _doublePercent;
-    private int _attackSpeed;
+    private float _attackSpeed;
     private int _attackRange;       // Level당 20% 씩 범위 증가
 
     // 이동
@@ -32,7 +32,7 @@ public class Stat : MonoBehaviour
     public int Damage { get { return _damage; } set { _damage = value; } }
     public float CriticalPercent { get { return _criticalPercent; } set { _criticalPercent = value; } }
     public float DoublePercent { get { return _doublePercent; } set { _doublePercent = value; } }
-    public int AttackSpeed { get { return _attackSpeed; } set { _attackRange = value; } }
+    public float AttackSpeed { get { return _attackSpeed; } set { _attackSpeed = value; } }
     public int AttackRange { get { return _attackRange; } set { _attackRange = value; } }
 
     // 이동

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : Character
 {
     public GameObject go_weapon;
+    private Animator animator;
 
     private float exp;
 
@@ -20,7 +21,7 @@ public class Player : Character
     public int Damage;
     public float CriticalPercent;
     public float DoublePercent;
-    public int AttackSpeed;
+    public float AttackSpeed;
     public int AttackRange;
 
     // Cool time;
@@ -33,6 +34,8 @@ public class Player : Character
 
         // Init
         hpRecoveryCooltime = 0f;
+
+        animator = GetComponent<Animator>();
     }
 
     protected override void Update()
@@ -54,6 +57,7 @@ public class Player : Character
             _stat.CriticalPercent = CriticalPercent;
             _stat.DoublePercent = DoublePercent;
             _stat.AttackSpeed = AttackSpeed;
+            animator.SetFloat("AttackSpeed", _stat.AttackSpeed);
             _stat.AttackRange = AttackRange;
             go_weapon.GetComponent<Sword>().UpgradeAttackRange(_stat.AttackRange);        
         }
