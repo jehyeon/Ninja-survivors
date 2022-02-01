@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    private Stat _stat;
+    protected Stat _stat;
     public Stat Stat { get { return _stat; } }
 
     void Awake()
@@ -16,13 +16,6 @@ public class Character : MonoBehaviour
     protected virtual void Update()
     {
         Die();
-    }
-
-    public void GetDamage(int damage)
-    {
-        Debug.Log(_stat.Hp);
-        _stat.DecreaseHp(damage);
-        Debug.Log(_stat.Hp);
     }
 
     protected void Die()

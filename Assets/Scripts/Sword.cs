@@ -5,6 +5,7 @@ using UnityEngine;
 public class Sword : Weapon
 {
     private GameObject go_player;
+    private Stat stat;
 
     private int _damage = 5;
 
@@ -12,6 +13,8 @@ public class Sword : Weapon
     {
         InitCollider();
         GetPlayerObject();
+
+        stat = go_player.GetComponent<Stat>();
     }
 
     private void InitCollider()
@@ -40,9 +43,27 @@ public class Sword : Weapon
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<Enemy>().GetDamage(_damage);
+            // 더블공격
+            if (Random.value < stat.DoublePercent)
+            {
+                Attack(other);
+            }
+            Attack(other);
         }
 
         return;
+    }
+
+    private void Attack(Collider other)
+    {
+        // 크리티컬
+        if (Random.value < stat.CriticalPercent)
+        {
+            other.gameObject.GetComponent<Enemy>().GetDamage(_damage * 2);
+        }
+        else
+        {
+            other.gameObject.GetComponent<Enemy>().GetDamage(_damage);
+        }
     }
 }

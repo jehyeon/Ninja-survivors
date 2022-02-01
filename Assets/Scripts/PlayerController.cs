@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed;
-    public float jumpPower;
     public float gravity;
     public float lookSensitivity;   // 감도
     private Vector3 moveDir = Vector3.zero;
 
+    private Stat stat;
     private CharacterController cc;
     private Animator animator;
     private GameObject playerCamera;
@@ -21,6 +20,7 @@ public class PlayerController : MonoBehaviour
         cc = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         playerCamera = GameObject.Find("Main Camera");
+        stat = GetComponent<Stat>();
     }
 
     // Update is called once per frame
@@ -58,17 +58,17 @@ public class PlayerController : MonoBehaviour
             if (v == 1 && h == 0)
             {
                 // sprint
-                moveDir *= speed * 2f;
+                moveDir *= stat.Speed * 1.5f;
             }
             else
             {
-                moveDir *= speed;
+                moveDir *= stat.Speed;
             }
 
             // Jump
             if (Input.GetButtonDown("Jump"))
             {
-                moveDir.y = jumpPower;
+                moveDir.y = stat.JumpPower;
             }
 
             // Animator

@@ -15,4 +15,10 @@ public class Enemy : Character
     {
         base.Update();
     }
+
+    public void GetDamage(int damage)
+    {
+        _stat.DecreaseHp(damage);
+        Debug.Log(_stat.Hp);
+    }    
 }
