@@ -1,6 +1,12 @@
 # vscode
 .vsconfig
 
+# temp
+2000_Icons
+2000_Icons.meta
+UIKIT
+UIKIT.meta
+
 # Created by https://www.toptal.com/developers/gitignore/api/unity
 # Edit at https://www.toptal.com/developers/gitignore?templates=unity
 
