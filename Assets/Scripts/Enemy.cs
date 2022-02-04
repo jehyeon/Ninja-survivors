@@ -102,6 +102,13 @@ public class Enemy : Character
             go_exp.GetComponent<Experience>().SetExp(exp);
             go_exp.transform.position = this.transform.position + new Vector3(0, 1f, 0);
 
+            // 적 처치시 체력회복
+            int hpRecoveryPerKill = player.GetComponent<Player>().Stat.KillHpAbsorption;
+            if (hpRecoveryPerKill > 0)
+            {
+                player.GetComponent<Player>().Stat.Heal(hpRecoveryPerKill);
+            }
+
             Destroy(this.gameObject);      // temp
         }
     }    

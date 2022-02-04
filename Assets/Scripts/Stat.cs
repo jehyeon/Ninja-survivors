@@ -12,10 +12,12 @@ public class Stat : MonoBehaviour
 
     // 공격
     private int _damage;
+    private int _attackHpAbsorption;        // 타격당 체력 흡수
+    private int _killHpAbsorption;          // 처치당 체력 흡수
     private float _criticalPercent;
     private float _doublePercent;
     private float _attackSpeed;
-    private int _attackRange;       // Level당 20% 씩 범위 증가
+    private int _attackRange;               // Level당 20% 씩 범위 증가
 
     // 이동
     private float _speed;
@@ -30,6 +32,8 @@ public class Stat : MonoBehaviour
 
     // 공격
     public int Damage { get { return _damage; } set { _damage = value; } }
+    public int AttackHpAbsorption { get { return _attackHpAbsorption; } set { _attackHpAbsorption = value; } }
+    public int KillHpAbsorption { get { return _killHpAbsorption; } set { _killHpAbsorption = value; } }
     public float CriticalPercent { get { return _criticalPercent; } set { _criticalPercent = value; } }
     public float DoublePercent { get { return _doublePercent; } set { _doublePercent = value; } }
     public float AttackSpeed { get { return _attackSpeed; } set { _attackSpeed = value; } }

@@ -68,6 +68,12 @@ public class Sword : Weapon
         {
             other.gameObject.GetComponent<Enemy>().GetDamage(stat.Damage);
         }
+
+        if (stat.AttackHpAbsorption > 0)
+        {
+            // 타격마다 체력 회복
+            stat.Heal(stat.AttackHpAbsorption);
+        }
     }
 
     public void UpgradeAttackRange(int level = 1)
