@@ -18,7 +18,7 @@ public class Character : MonoBehaviour
         Die();
     }
 
-    protected void Die()
+    protected virtual void Die()
     {
         if (_stat.Hp <= 0)
         {

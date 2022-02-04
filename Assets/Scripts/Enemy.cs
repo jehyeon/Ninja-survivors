@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Enemy : Character
 {
-    public GameObject player;
+    private GameObject player;
+    private ObjectPool expOP;
     private Animator animator;
 
     [SerializeField]
@@ -14,10 +15,13 @@ public class Enemy : Character
     private bool isMove;
     private bool canAttack;     // 공격 범위 안에 있는지
     private float attackRange = 2f;    // temp
+    private int exp = 10;   // temp
 
     void Start()
     {
         player = GameObject.Find("Player");
+        expOP = GameObject.Find("Exp Object Pool").GetComponent<ObjectPool>();
+
         // Enemy table 만들기 전까지 임시
         _stat.Speed = 5;
         _stat.Damage = 5;
@@ -87,4 +91,18 @@ public class Enemy : Character
         _stat.DecreaseHp(damage);
         Debug.Log(_stat.Hp);
     }
+
+    protected override void Die()
+    {
+        if (_stat.Hp <= 0)
+        {
+            // 경험치 드랍
+            GameObject go_exp = expOP.Get();
+            // 성능 저하가 생기면 오브젝트 풀 프리팹을 Experience로 수정
+            go_exp.GetComponent<Experience>().SetExp(exp);
+            go_exp.transform.position = this.transform.position + new Vector3(0, 1f, 0);
+
+            Destroy(this.gameObject);      // temp
+        }
+    }    
 }

@@ -9,7 +9,7 @@ public class Player : Character
 
     private Animator animator;
 
-    private float exp;
+    private Exp _exp;
 
     // temp for test
     public int Hp;
@@ -29,6 +29,8 @@ public class Player : Character
     // Cool time;
     private float hpRecoveryCooltime;
 
+    public Exp exp { get { return _exp; } }
+
     private void Start()
     {
         // temp
@@ -39,6 +41,7 @@ public class Player : Character
 
         // Init
         hpRecoveryCooltime = 0f;
+        _exp = new Exp();
     }
 
     protected override void Update()
@@ -135,6 +138,14 @@ public class Player : Character
         else
         {
             sword.DeActivateWeapon();
+        }
+    }
+
+    protected override void Die()
+    {
+        if (_stat.Hp <= 0)
+        {
+            Debug.Log("플레이어 사망");
         }
     }
 }
