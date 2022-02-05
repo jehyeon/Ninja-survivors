@@ -32,8 +32,14 @@ public class Experience : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<Player>().exp.GainExp(_exp);
+            Player player = other.gameObject.GetComponent<Player>();
+            bool result = player.exp.GainExp(_exp);
             expOP.Return(this.gameObject);
+
+            if (result)
+            {
+                player.LevelUp();
+            }
         }
 
         return;

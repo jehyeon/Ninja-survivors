@@ -25,7 +25,7 @@ public class Exp
         this._now = (_amount - _beforeExp) / (_requireExp - _beforeExp);
     }
 
-    public void GainExp(int amount)
+    public bool GainExp(int amount)
     {
         _amount += amount;
         this._now = (_amount - _beforeExp) / (_requireExp - _beforeExp);
@@ -33,6 +33,10 @@ public class Exp
         if (_amount > _requireExp)
         {
             LevelUp();
+            
+            return true;    // 레벨업하면 return true
         }
+
+        return false;
     }
 }

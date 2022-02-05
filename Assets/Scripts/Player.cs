@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : Character
 {
+    private GameManager gameManager;
+
     public GameObject go_weapon;
     private Sword sword;
 
@@ -21,6 +23,8 @@ public class Player : Character
     public float JumpPower;
 
     public int Damage;
+    public int AttackHpAbsorption;
+    public int KillHpAbsorption;
     public float CriticalPercent;
     public float DoublePercent;
     public float AttackSpeed;
@@ -33,6 +37,8 @@ public class Player : Character
 
     private void Start()
     {
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+
         // temp
         go_weapon = transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).Find("Weapon").gameObject;
         sword = go_weapon.GetComponent<Sword>();
@@ -60,12 +66,20 @@ public class Player : Character
             _stat.JumpPower = JumpPower;
 
             _stat.Damage = Damage;
+            _stat.AttackHpAbsorption = AttackHpAbsorption;
+            _stat.KillHpAbsorption = KillHpAbsorption;
             _stat.CriticalPercent = CriticalPercent;
             _stat.DoublePercent = DoublePercent;
             _stat.AttackSpeed = AttackSpeed;
             animator.SetFloat("AttackSpeed", _stat.AttackSpeed);
             _stat.AttackRange = AttackRange;
             sword.UpgradeAttackRange(_stat.AttackRange);        
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            // temp
+            gameManager.LevelUp();
         }
 
         // 자동 회복
@@ -147,5 +161,11 @@ public class Player : Character
         {
             Debug.Log("플레이어 사망");
         }
+    }
+
+    public void LevelUp()
+    {
+        // 경험치 프리팹에서 호출
+        gameManager.LevelUp();
     }
 }
