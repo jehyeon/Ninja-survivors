@@ -71,9 +71,9 @@ public class Player : Character
             _stat.CriticalPercent = CriticalPercent;
             _stat.DoublePercent = DoublePercent;
             _stat.AttackSpeed = AttackSpeed;
-            animator.SetFloat("AttackSpeed", _stat.AttackSpeed);
+            UpdataAttackSpeed();
             _stat.AttackRange = AttackRange;
-            sword.UpgradeAttackRange(_stat.AttackRange);        
+            UpdateAttackRange();
         }
 
         if (Input.GetKeyDown(KeyCode.L))
@@ -167,5 +167,15 @@ public class Player : Character
     {
         // 경험치 프리팹에서 호출
         gameManager.LevelUp();
+    }
+
+    public void UpdataAttackSpeed()
+    {
+        animator.SetFloat("AttackSpeed", _stat.AttackSpeed);
+    }
+
+    public void UpdateAttackRange()
+    {
+        sword.UpgradeAttackRange(_stat.AttackRange);
     }
 }

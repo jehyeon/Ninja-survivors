@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour
             // Jump
             if (Input.GetButtonDown("Jump"))
             {
+                Debug.Log(stat.JumpPower);
                 moveDir.y = stat.JumpPower;
             }
 
