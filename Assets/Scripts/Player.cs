@@ -48,6 +48,7 @@ public class Player : Character
         // Init
         hpRecoveryCooltime = 0f;
         _exp = new Exp();
+        gameManager.UpdateHpBar();
     }
 
     protected override void Update()
@@ -90,6 +91,7 @@ public class Player : Character
     }
 
     // About Stat
+
     public void GetDamage(int damage)
     {
         if (Random.value < _stat.EvasionPercent)
@@ -108,8 +110,7 @@ public class Player : Character
             _stat.DecreaseHp(Mathf.FloorToInt(damage / (1 - _stat.Defense)));
             Debug.LogFormat("defense: {0}", _stat.Defense);
         }
-
-        Debug.Log(_stat.Hp);
+        gameManager.UpdateHpBar();
     }
 
     private void RecoverHp()
@@ -127,6 +128,7 @@ public class Player : Character
             _stat.Heal(_stat.HpRecovery);
             hpRecoveryCooltime = 0;
         }
+        gameManager.UpdateHpBar();
     }
 
     // 공격 중인지 확인
@@ -163,10 +165,16 @@ public class Player : Character
         }
     }
 
-    public void LevelUp()
+    public void GainExp(int amount)
     {
-        // 경험치 프리팹에서 호출
-        gameManager.LevelUp();
+        bool result = this._exp.GainExp(amount);
+
+        if (result)
+        {
+            gameManager.LevelUp();
+        }
+
+        gameManager.UpdateExpBar();
     }
 
     public void UpdataAttackSpeed()

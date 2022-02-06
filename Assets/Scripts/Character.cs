@@ -10,7 +10,9 @@ public class Character : MonoBehaviour
     void Awake()
     {
         _stat = gameObject.AddComponent<Stat>();
+        // temp
         _stat.Hp = 100;
+        _stat.MaxHp = 100;
     }
 
     protected virtual void Update()

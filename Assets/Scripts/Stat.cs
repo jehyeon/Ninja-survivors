@@ -6,6 +6,7 @@ public class Stat : MonoBehaviour
 {
     // 방어
     private int _hp;
+    private int _maxHp;
     private int _hpRecovery;
     private float _defense;
     private float _evasionPercent;
@@ -26,6 +27,7 @@ public class Stat : MonoBehaviour
     // 특수
 
     public int Hp { get { return _hp; } set { _hp = value; } }
+    public int MaxHp { get { return _maxHp; } set { _maxHp = value; } }
     public int HpRecovery { get { return _hpRecovery; } set { _hpRecovery = value; } }
     public float Defense { get { return _defense; } set { _defense = value; } }
     public float EvasionPercent { get { return _evasionPercent; } set { _evasionPercent = value; } }

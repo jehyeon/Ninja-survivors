@@ -21,6 +21,18 @@ public class GameManager : MonoBehaviour
         FillAbility();
     }
 
+    // UI
+    public void UpdateHpBar()
+    {
+        ui.UpdateHpBar(player.Stat.Hp, player.Stat.MaxHp);
+    }
+
+    public void UpdateExpBar()
+    {
+        ui.UpdateExpBar(player.exp.Now);
+    }
+
+    // Ability
     private void FillAbility()
     {   
         ui.OpenAbilityPopups();
@@ -53,7 +65,14 @@ public class GameManager : MonoBehaviour
         Debug.Log(abilityId);
 
         // Stat에 바로 적용
-        player.Stat.Hp += (int)abilityManager.data[abilityId]["id"];
+        // 최대 체력
+        int maxHp = (int)abilityManager.data[abilityId]["hp"];
+        if (maxHp != 0)
+        {
+            player.Stat.Hp += (int)abilityManager.data[abilityId]["hp"];
+            player.Stat.MaxHp += (int)abilityManager.data[abilityId]["hp"];
+            UpdateHpBar();
+        }
         player.Stat.HpRecovery += (int)abilityManager.data[abilityId]["hpRecovery"];
         player.Stat.Defense += (int)abilityManager.data[abilityId]["defense"];
         player.Stat.EvasionPercent += (float)(int)abilityManager.data[abilityId]["evasionPercent"] / 100f;

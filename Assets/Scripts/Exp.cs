@@ -8,6 +8,8 @@ public class Exp
     private float _now;     // 현재 경험치 percent
     private int _beforeExp;
     private int _requireExp;
+
+    public float Now { get { return _now; } }
     
     public Exp()
     {
@@ -21,7 +23,7 @@ public class Exp
     {
         this._level += 1;
         _beforeExp = _requireExp;
-        _requireExp = (int)Mathf.Floor(_requireExp * 1.2f);
+        _requireExp = (int)Mathf.Floor(_requireExp * 1.2f) + _beforeExp;
         this._now = (_amount - _beforeExp) / (_requireExp - _beforeExp);
     }
 
@@ -30,7 +32,7 @@ public class Exp
         _amount += amount;
         this._now = (_amount - _beforeExp) / (_requireExp - _beforeExp);
 
-        if (_amount > _requireExp)
+        if (_amount >= _requireExp)
         {
             LevelUp();
             
