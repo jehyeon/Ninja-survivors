@@ -12,7 +12,7 @@ public class Rat : MeleeEnemy
 
         _stat.Hp = 10;
         _stat.Speed = 5;
-        _stat.Damage = 2;
+        _stat.Damage = 1;
 
         exp = 10;
     }

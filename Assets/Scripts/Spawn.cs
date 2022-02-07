@@ -7,8 +7,17 @@ public class Spawn : MonoBehaviour
     [SerializeField]
     private RatFactory ratFactory;
 
-    void Start()
+    // temp
+    private float spawnTime = 0f;
+        
+    void Update()
     {
-        Enemy enemy = ratFactory.CreateEnemy("default");
+        spawnTime += Time.deltaTime;
+        if (spawnTime > 4f)
+        {
+            spawnTime = 0;
+            ratFactory.CreateEnemy("default");
+            ratFactory.CreateEnemy("default");
+        }
     }
 }
