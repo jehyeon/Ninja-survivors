@@ -24,6 +24,7 @@ public class UI : MonoBehaviour
         go_HpBar = transform.GetChild(1).GetComponent<Slider>();
         text_hpBar = go_HpBar.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
         go_ExpBar = transform.GetChild(2).GetComponent<Slider>();
+        abilityList = transform.GetChild(3).GetComponent<AbilityList>();
     }
 
     // 체력
@@ -50,10 +51,10 @@ public class UI : MonoBehaviour
         go_abilityPopups.SetActive(false);
     }
 
-    public void FillAbilityPopups(Ability[] abilities)
+    public void FillAbilityPopups(List<Ability> abilities)
     {
         // 기본적으로 ability.Length == 3
-        for (int i = 0; i < abilities.Length; i++)
+        for (int i = 0; i < abilities.Count; i++)
         {
             go_abilityPopups.transform.GetChild(i).GetComponent<AbilityPopup>().Set(abilities[i]);
         }

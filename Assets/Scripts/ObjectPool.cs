@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    public static ObjectPool Instance;
+    // public static ObjectPool Instance;
     [SerializeField]
     private GameObject poolingObjectPref;
     [SerializeField]
@@ -16,7 +16,7 @@ public class ObjectPool : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        // Instance = this;
 
         Init(_count);
     }
@@ -40,12 +40,12 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject Get()
     {
-        if (Instance.poolingObjectQueue.Count < 1)
+        if (this.poolingObjectQueue.Count < 1)
         {
             Init(_additionalCount);
         }
 
-        GameObject obj = Instance.poolingObjectQueue.Dequeue();
+        GameObject obj = this.poolingObjectQueue.Dequeue();
         obj.transform.SetParent(null);
         obj.gameObject.SetActive(true);
 
@@ -55,7 +55,7 @@ public class ObjectPool : MonoBehaviour
     public void Return(GameObject obj)
     {
         obj.SetActive(false);
-        obj.transform.SetParent(Instance.transform);
-        Instance.poolingObjectQueue.Enqueue(obj);
+        obj.transform.SetParent(this.transform);
+        this.poolingObjectQueue.Enqueue(obj);
     }
 }

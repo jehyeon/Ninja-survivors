@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using UnityEngine;
+
 public class AbilityManager {
-    private List<Dictionary<string, object>> data;
+    public List<Dictionary<string, object>> data;
     private int _count;
     public int Count { get { return _count; } }
     public AbilityManager()
@@ -13,14 +15,15 @@ public class AbilityManager {
     {
         Ability ability = new Ability(
             abilityId,
-            abilityManager.data[abilityId]["name"].ToString(),
-            (int)abilityManager.data[abilityId]["imageId"]
+            data[abilityId]["name"].ToString(),
+            (int)data[abilityId]["imageId"],
+            (int)data[abilityId]["type"]
         );
 
         return ability;
     }
 
-    public Ability GetRandomAbility(int numOfTry = 3)
+    public List<Ability> GetRandomAbility(int numOfTry = 3)
     {
         // 서로 다른 abilitiy 3개
         // rank별로 확률 존재, maxCount인 ability는 예외 처리

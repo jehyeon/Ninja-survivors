@@ -41,7 +41,6 @@ public class Experience : MonoBehaviour
 
     private void GoToPlayer()
     {
-        Debug.Log(delay);
         if (delay < .7f)
         {
             delay += Time.deltaTime;

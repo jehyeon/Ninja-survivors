@@ -16,17 +16,20 @@ public class AbilityList : MonoBehaviour
 
     public void Add(Ability ability)
     {
-        // if ()
-        // ability.Id가 abilityIds에 포함되어 있으면 그 index를 가져와서
-        // GetChild(index).GetComponent<AbilitySlot>().UpdateCount()
-        // else
-        
-        // Object pool에서 가져옴
-        GameObject go_slot = abilitySlotOP.Get();
-        
-        // Add
-        go_slot.GetComponent<AbilitySlot>().Set(ability);
-        go_slot.transform.parent = this.transform;
-        abilityIds.Add(ability.Id);
+        int index = abilityIds.IndexOf(ability.Id);
+        if (index > -1)
+        {
+            this.transform.GetChild(index).GetComponent<AbilitySlot>().UpdateCount();
+        }
+        else
+        {
+            // Object pool에서 가져옴
+            GameObject go_slot = abilitySlotOP.Get();
+
+                // Add
+            go_slot.GetComponent<AbilitySlot>().Set(ability);
+            go_slot.transform.parent = this.transform;
+            abilityIds.Add(ability.Id);
+        }
     }
 }

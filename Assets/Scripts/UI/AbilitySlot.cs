@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class AbilitySlot : MonoBehaviour
 {
     [SerializeField]
     private Image img_abilityImage;
-    [SerializeField]
-    private TextMeshProUGUI text_abilityName;
+    // [SerializeField]
+    // private TextMeshProUGUI text_abilityName;
     [SerializeField]
     private TextMeshProUGUI text_count;
     
@@ -23,7 +25,7 @@ public class AbilitySlot : MonoBehaviour
     {
         _abilityId = ability.Id;
         img_abilityImage.sprite = ability.Sprite;
-        text_abilityName = ability.Name;
+        // text_abilityName.text = ability.Name;
 
         if (_count == 1)
         {
@@ -38,6 +40,6 @@ public class AbilitySlot : MonoBehaviour
     public void UpdateCount(int count = 1)
     {
         _count += count;
-        text_count.text = _count;
+        text_count.text = _count.ToString();
     }
 }

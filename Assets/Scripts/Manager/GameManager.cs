@@ -40,21 +40,21 @@ public class GameManager : MonoBehaviour
         ui.FillAbilityPopups(abilityManager.GetRandomAbility());
     }
 
-    public void SelectAbility(int abilityId)
+    public void SelectAbility(Ability ability)
     {
         // Ability pop up에서 선택
         ui.CloseAbilityPopups();
 
-        switch ((int)abilityManager.data[abilityId]["type"])
+        switch (ability.Type)
         {
             case 0:
                 // Stat 적용
-                AddStatAbility(abilityId);
+                AddStatAbility(ability.Id);
                 break;
-            default:
-                // 선택한 ability를 UI에 추가
-                ui.AddAbilitySlot(abilityId);
         }
+
+        // 선택한 ability를 UI에 추가
+        ui.AddAbilitySlot(ability);
     }
 
     // Stat 어빌리티
@@ -83,10 +83,7 @@ public class GameManager : MonoBehaviour
         int attackRange = (int)abilityManager.data[abilityId]["attackRange"];
         if (attackSpeed != 0)
         {
-            Debug.Log(player.Stat.AttackSpeed);
-            Debug.Log(attackSpeed / 100f);
             player.Stat.AttackSpeed += (float)attackSpeed / 100f;
-            Debug.Log(player.Stat.AttackSpeed);
             player.UpdataAttackSpeed();
         }
         if (attackRange != 0)

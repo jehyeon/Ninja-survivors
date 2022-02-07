@@ -13,7 +13,7 @@ public class AbilityPopup : MonoBehaviour, IPointerClickHandler
     private TextMeshProUGUI text_abilityName;
 
     private GameManager gameManager;
-    private int _abilityId;
+    private Ability _ability;
     
     private void Awake() {
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
@@ -22,12 +22,12 @@ public class AbilityPopup : MonoBehaviour, IPointerClickHandler
     // 클릭 이벤트
     public void OnPointerClick(PointerEventData eventData)
     {
-        gameManager.SelectAbility(_abilityId);
+        gameManager.SelectAbility(_ability);
     }
 
     public void Set(Ability ability)
     {
-        _abilityId = ability.Id;
+        _ability = ability;
         img_abilityImage.sprite = ability.Sprite;
         text_abilityName.text = ability.Name;
     }
