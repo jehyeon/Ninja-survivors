@@ -34,21 +34,15 @@ public class GameManager : MonoBehaviour
 
     // Ability
     private void FillAbility()
-    {   
+    {
+        // Ability pop up 채우기
         ui.OpenAbilityPopups();
-
-        List<int> abilityIds = new List<int>();
-        for (int i = 0; i < 3; i++)
-        {
-            int abilityId = Random.Range(0, abilityManager.Count);
-            int abilityImageId = (int)abilityManager.data[abilityId]["imageId"];
-            string abilityName = abilityManager.data[abilityId]["name"].ToString();
-            ui.FillAbilityPopup(i, abilityId, abilityImageId, abilityName);
-        }
+        ui.FillAbilityPopups(abilityManager.GetRandomAbility());
     }
 
     public void SelectAbility(int abilityId)
     {
+        // Ability pop up에서 선택
         ui.CloseAbilityPopups();
 
         switch ((int)abilityManager.data[abilityId]["type"])
@@ -57,13 +51,15 @@ public class GameManager : MonoBehaviour
                 // Stat 적용
                 AddStatAbility(abilityId);
                 break;
+            default:
+                // 선택한 ability를 UI에 추가
+                ui.AddAbilitySlot(abilityId);
         }
     }
 
+    // Stat 어빌리티
     private void AddStatAbility(int abilityId)
     {
-        Debug.Log(abilityId);
-
         // Stat에 바로 적용
         // 최대 체력
         int maxHp = (int)abilityManager.data[abilityId]["hp"];
@@ -103,5 +99,4 @@ public class GameManager : MonoBehaviour
         player.Stat.Speed += (float)(int)abilityManager.data[abilityId]["speed"];
         player.Stat.JumpPower += (float)(int)abilityManager.data[abilityId]["jumpPower"];
     }
-
 }

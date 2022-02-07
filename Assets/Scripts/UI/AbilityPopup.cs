@@ -25,11 +25,11 @@ public class AbilityPopup : MonoBehaviour, IPointerClickHandler
         gameManager.SelectAbility(_abilityId);
     }
 
-    public void Set(int id, int imageId, string name)
+    public void Set(Ability ability)
     {
-        _abilityId = id;
-        img_abilityImage.sprite = Resources.Load<Sprite>("Abilities/" + imageId);
-        text_abilityName.text = name;
+        _abilityId = ability.Id;
+        img_abilityImage.sprite = ability.Sprite;
+        text_abilityName.text = ability.Name;
     }
 
     public void Clear()

@@ -7,9 +7,16 @@ using TMPro;
 public class UI : MonoBehaviour
 {
     private GameObject go_abilityPopups;
+
+    // 체력
     private Slider go_HpBar;
     private TextMeshProUGUI text_hpBar;
+
+    // 경험치
     private Slider go_ExpBar;
+
+    // 능력
+    private AbilityList abilityList;
 
     void Awake()
     {
@@ -18,7 +25,21 @@ public class UI : MonoBehaviour
         text_hpBar = go_HpBar.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
         go_ExpBar = transform.GetChild(2).GetComponent<Slider>();
     }
-    
+
+    // 체력
+    public void UpdateHpBar(int newHp, int maxHp)
+    {
+        go_HpBar.value = (float)newHp / (float)maxHp;
+        text_hpBar.text = newHp + " / " + maxHp;
+    }
+
+    // 경험치
+    public void UpdateExpBar(float now)
+    {
+        go_ExpBar.value = now;
+    }
+
+    // 어빌리티 (레벨 업 관련)
     public void OpenAbilityPopups()
     {
         go_abilityPopups.SetActive(true);
@@ -29,20 +50,18 @@ public class UI : MonoBehaviour
         go_abilityPopups.SetActive(false);
     }
 
-    public void FillAbilityPopup(int index, int abilityId, int abilityImageId, string abilityName)
+    public void FillAbilityPopups(Ability[] abilities)
     {
-        go_abilityPopups.transform.GetChild(index).GetComponent<AbilityPopup>().Set(abilityId, abilityImageId, abilityName);
+        // 기본적으로 ability.Length == 3
+        for (int i = 0; i < abilities.Length; i++)
+        {
+            go_abilityPopups.transform.GetChild(i).GetComponent<AbilityPopup>().Set(abilities[i]);
+        }
     }
 
-    public void UpdateHpBar(int newHp, int maxHp)
+    // 현재 소지 중인 어빌리티
+    public void AddAbilitySlot(Ability ability)
     {
-        go_HpBar.value = (float)newHp / (float)maxHp;
-        text_hpBar.text = newHp + " / " + maxHp;
-    }
-
-    public void UpdateExpBar(float now)
-    {
-        go_ExpBar.value = now;
-        // level text
+        abilityList.Add(ability);
     }
 }
