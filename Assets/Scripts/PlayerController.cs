@@ -68,7 +68,6 @@ public class PlayerController : MonoBehaviour
             // Jump
             if (Input.GetButtonDown("Jump"))
             {
-                Debug.Log(stat.JumpPower);
                 moveDir.y = stat.JumpPower;
             }
 
@@ -118,7 +117,7 @@ public class PlayerController : MonoBehaviour
     {
         RaycastHit hit;
         Physics.Raycast(this.transform.position, Vector3.down, out hit, .15f);
-        Debug.DrawRay(this.transform.position, Vector3.down * 0.15f);
+        // Debug.DrawRay(this.transform.position, Vector3.down * 0.15f);
         if (hit.transform == null)
         {
             return false;

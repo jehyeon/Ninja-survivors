@@ -6,10 +6,10 @@ public class Player : Character
 {
     private GameManager gameManager;
 
+    [SerializeField]
     public GameObject go_weapon;
     private Sword sword;
 
-    private Animator animator;
 
     private Exp _exp;
 
@@ -30,53 +30,37 @@ public class Player : Character
     public float AttackSpeed;
     public int AttackRange;
 
-    // Cool time;
+    // Cool time
     private float hpRecoveryCooltime;
 
     public Exp exp { get { return _exp; } }
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        sword = go_weapon.GetComponent<Sword>();
+    }
+
     private void Start()
     {
-        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-
-        // temp
-        go_weapon = transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetChild(0).GetChild(0).GetChild(0).Find("Weapon").gameObject;
-        sword = go_weapon.GetComponent<Sword>();
-
-        animator = GetComponent<Animator>();
-
         // Init
         hpRecoveryCooltime = 0f;
         _exp = new Exp();
+        _stat.Hp = 100;
+        _stat.MaxHp = 100;
+        _stat.JumpPower = 35;
+        _stat.Damage = 5;
+        _stat.Speed = 6;
+        _stat.AttackSpeed = 1;
+        UpdataAttackSpeed();
+
         gameManager.UpdateHpBar();
     }
 
-    protected override void Update()
+    private void Update()
     {
-        base.Update();
-
-        // temp
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            _stat.Hp = Hp;
-            _stat.HpRecovery = HpRecovery;
-            _stat.Defense = Defense;
-            _stat.EvasionPercent = EvasionPercent;
-
-            _stat.Speed = Speed;
-            _stat.JumpPower = JumpPower;
-
-            _stat.Damage = Damage;
-            _stat.AttackHpAbsorption = AttackHpAbsorption;
-            _stat.KillHpAbsorption = KillHpAbsorption;
-            _stat.CriticalPercent = CriticalPercent;
-            _stat.DoublePercent = DoublePercent;
-            _stat.AttackSpeed = AttackSpeed;
-            UpdataAttackSpeed();
-            _stat.AttackRange = AttackRange;
-            UpdateAttackRange();
-        }
-
         if (Input.GetKeyDown(KeyCode.L))
         {
             // temp
@@ -88,6 +72,8 @@ public class Player : Character
 
         // 공격 시 sword collider 활성화
         ActivateWeapon();
+
+        Die();
     }
 
     // About Stat
@@ -157,7 +143,7 @@ public class Player : Character
         }
     }
 
-    protected override void Die()
+    private void Die()
     {
         if (_stat.Hp <= 0)
         {
