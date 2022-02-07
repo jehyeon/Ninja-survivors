@@ -16,6 +16,20 @@ public class GameManager : MonoBehaviour
         abilityManager = new AbilityManager();
     }
 
+    // Game
+    private void Pause()
+    {
+        // temp
+        Time.timeScale = 0;
+    }
+
+    private void UnPause()
+    {
+        // temp
+        Time.timeScale = 1;
+    }
+
+    // Player
     public void LevelUp()
     {
         FillAbility();
@@ -38,6 +52,7 @@ public class GameManager : MonoBehaviour
         // Ability pop up 채우기
         ui.OpenAbilityPopups();
         ui.FillAbilityPopups(abilityManager.GetRandomAbility());
+        Pause();    // 일시 정지
     }
 
     public void SelectAbility(Ability ability)
@@ -55,6 +70,8 @@ public class GameManager : MonoBehaviour
 
         // 선택한 ability를 UI에 추가
         ui.AddAbilitySlot(ability);
+
+        UnPause();  // 일시정지 해제
     }
 
     // Stat 어빌리티
