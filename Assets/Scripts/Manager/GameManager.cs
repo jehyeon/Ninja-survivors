@@ -34,36 +34,32 @@ public class GameManager : MonoBehaviour
 
     // Ability
     private void FillAbility()
-    {   
+    {
+        // Ability pop up 채우기
         ui.OpenAbilityPopups();
-
-        List<int> abilityIds = new List<int>();
-        for (int i = 0; i < 3; i++)
-        {
-            int abilityId = Random.Range(0, abilityManager.Count);
-            int abilityImageId = (int)abilityManager.data[abilityId]["imageId"];
-            string abilityName = abilityManager.data[abilityId]["name"].ToString();
-            ui.FillAbilityPopup(i, abilityId, abilityImageId, abilityName);
-        }
+        ui.FillAbilityPopups(abilityManager.GetRandomAbility());
     }
 
-    public void SelectAbility(int abilityId)
+    public void SelectAbility(Ability ability)
     {
+        // Ability pop up에서 선택
         ui.CloseAbilityPopups();
 
-        switch ((int)abilityManager.data[abilityId]["type"])
+        switch (ability.Type)
         {
             case 0:
                 // Stat 적용
-                AddStatAbility(abilityId);
+                AddStatAbility(ability.Id);
                 break;
         }
+
+        // 선택한 ability를 UI에 추가
+        ui.AddAbilitySlot(ability);
     }
 
+    // Stat 어빌리티
     private void AddStatAbility(int abilityId)
     {
-        Debug.Log(abilityId);
-
         // Stat에 바로 적용
         // 최대 체력
         int maxHp = (int)abilityManager.data[abilityId]["hp"];
@@ -87,10 +83,7 @@ public class GameManager : MonoBehaviour
         int attackRange = (int)abilityManager.data[abilityId]["attackRange"];
         if (attackSpeed != 0)
         {
-            Debug.Log(player.Stat.AttackSpeed);
-            Debug.Log(attackSpeed / 100f);
             player.Stat.AttackSpeed += (float)attackSpeed / 100f;
-            Debug.Log(player.Stat.AttackSpeed);
             player.UpdataAttackSpeed();
         }
         if (attackRange != 0)
@@ -103,5 +96,4 @@ public class GameManager : MonoBehaviour
         player.Stat.Speed += (float)(int)abilityManager.data[abilityId]["speed"];
         player.Stat.JumpPower += (float)(int)abilityManager.data[abilityId]["jumpPower"];
     }
-
 }
