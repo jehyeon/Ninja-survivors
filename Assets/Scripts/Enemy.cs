@@ -18,6 +18,7 @@ public class Enemy : Character
 
     // About Exp
     private ObjectPool expOP;
+    protected ObjectPool enemyOP = null;        // 상속받는 Enemy class에서 할당
 
     // Stat <- From Character
 
@@ -108,7 +109,15 @@ public class Enemy : Character
                 player.GetComponent<Player>().Stat.Heal(hpRecoveryPerKill);
             }
 
-            Destroy(this.gameObject);      // temp
+            if (enemyOP == null)
+            {
+                // 오브젝트 풀이 할당이 안된 경우 Destroy
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                enemyOP.Return(this.gameObject);
+            }
         }
     }    
 }

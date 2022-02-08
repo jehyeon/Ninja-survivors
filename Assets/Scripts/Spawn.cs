@@ -43,7 +43,7 @@ public class Spawn : MonoBehaviour
     }
 }
 
-private struct Pos
+public struct Pos
 {
     public int x;
     public int y;

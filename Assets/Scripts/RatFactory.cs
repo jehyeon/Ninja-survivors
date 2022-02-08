@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RatFactory : AbsEnemyFactory
 {
-    [SerializeField]
-    private GameObject pref_rat;
     private ObjectPool ratOP;
 
     private void Awake()
