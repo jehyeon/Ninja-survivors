@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class UI : MonoBehaviour
@@ -18,6 +19,9 @@ public class UI : MonoBehaviour
     // 능력
     private AbilityList abilityList;
 
+    // 게임 오버
+    private GameObject gameOverUI;
+
     void Awake()
     {
         go_abilityPopups = transform.GetChild(0).gameObject;
@@ -25,6 +29,7 @@ public class UI : MonoBehaviour
         text_hpBar = go_HpBar.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
         go_ExpBar = transform.GetChild(2).GetComponent<Slider>();
         abilityList = transform.GetChild(3).GetComponent<AbilityList>();
+        gameOverUI = transform.GetChild(4).gameObject;
     }
 
     // 체력
@@ -64,5 +69,22 @@ public class UI : MonoBehaviour
     public void AddAbilitySlot(Ability ability)
     {
         abilityList.Add(ability);
+    }
+
+    // 게임 재시작
+    public void RetryGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    // 게임 종료
+    public void ExitGame()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
+
+    public void OpenGameOverUI()
+    {
+        gameOverUI.SetActive(true);
     }
 }

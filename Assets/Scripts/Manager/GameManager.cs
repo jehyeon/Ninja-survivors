@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
         ui = GameObject.Find("Canvas").GetComponent<UI>();
 
         abilityManager = new AbilityManager();
+
+        UnPause();
     }
 
     // Game
@@ -112,5 +114,11 @@ public class GameManager : MonoBehaviour
         // 이동속도, 점프력 (PlayerController)
         player.Stat.Speed += (float)(int)abilityManager.data[abilityId]["speed"];
         player.Stat.JumpPower += (float)(int)abilityManager.data[abilityId]["jumpPower"];
+    }
+
+    public void GameOver()
+    {
+        Pause();
+        ui.OpenGameOverUI();
     }
 }
