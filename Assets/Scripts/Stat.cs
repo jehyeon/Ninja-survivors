@@ -47,11 +47,26 @@ public class Stat : MonoBehaviour
     
     public void DecreaseHp(int decrease)
     {
+        if (decrease < 0)
+        {
+            Debug.Log("damage < 0");
+        }
+
         _hp -= decrease;
+
+        if (_hp < 0)
+        {
+            _hp = 0;
+        }
     }
 
     public void Heal(int amount)
     {
         _hp += amount;
+
+        if (_hp > _maxHp)
+        {
+            _hp = _maxHp;
+        }
     }
 }

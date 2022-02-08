@@ -93,8 +93,8 @@ public class Player : Character
         }
         else
         {
-            _stat.DecreaseHp(Mathf.FloorToInt(damage / (1 - _stat.Defense)));
-            Debug.LogFormat("defense: {0}", _stat.Defense);
+            // 0.95 -> 0, 1.9 -> 1
+            _stat.DecreaseHp(Mathf.FloorToInt((float)damage * (float)(100 - _stat.Defense) / 100f));
         }
         gameManager.UpdateHpBar();
     }
@@ -147,7 +147,7 @@ public class Player : Character
     {
         if (_stat.Hp <= 0)
         {
-            Debug.Log("플레이어 사망");
+            gameManager.GameOver();
         }
     }
 
