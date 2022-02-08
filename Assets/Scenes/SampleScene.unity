@@ -765,7 +765,7 @@ GameObject:
   - component: {fileID: 594885872}
   - component: {fileID: 594885871}
   - component: {fileID: 594885870}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Terrain
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -824,7 +824,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 594885869}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -500, y: -20, z: -500}
+  m_LocalPosition: {x: -525, y: -20, z: -475}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2155,9 +2155,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45f1a18f5d0131f478d1e628af964dc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnAreaCountPerLine: 0
-  spawnAreaSize: 0
+  minX: -100
+  maxX: 60
+  minZ: -100
+  maxZ: 100
+  flyEnemyMinY: 25
+  flyEnemyMaxY: 35
   ratFactory: {fileID: 2044467083}
+  spawnCoolTime: 3
+  enemyCountPerSpawn: 2
 --- !u!4 &2044467082
 Transform:
   m_ObjectHideFlags: 0
@@ -2323,11 +2329,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8127366576764737765, guid: 1a5fd9f05b966cc42b5cd30b783e818c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.94
+      value: 5.82
       objectReference: {fileID: 0}
     - target: {fileID: 8127366576764737765, guid: 1a5fd9f05b966cc42b5cd30b783e818c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.958
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8127366576764737765, guid: 1a5fd9f05b966cc42b5cd30b783e818c, type: 3}
       propertyPath: m_LocalRotation.w

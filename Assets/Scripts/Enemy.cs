@@ -22,6 +22,8 @@ public class Enemy : Character
 
     // Stat <- From Character
 
+    public bool CanFly { get { return canFly; } }
+
     protected override void Awake()
     {
         base.Awake();

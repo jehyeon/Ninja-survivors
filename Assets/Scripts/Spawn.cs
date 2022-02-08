@@ -5,52 +5,54 @@ using UnityEngine;
 public class Spawn : MonoBehaviour
 {
     [SerializeField]
-    private int spawnAreaCountPerLine;      // -count/2 ~ count/2 (한 줄에 count + 1 만큼 스폰 pos)
+    private float minX;
     [SerializeField]
-    private float spawnAreaSize;
-
+    private float maxX;
+    [SerializeField]
+    private float minZ;
+    [SerializeField]
+    private float maxZ;
+    [SerializeField]
+    private float flyEnemyMinY;
+    [SerializeField]
+    private float flyEnemyMaxY;
     [SerializeField]
     private RatFactory ratFactory;
 
+    private float time = 0f;
+
     // temp
-    private float spawnTime = 0f;
-    
+    public float spawnCoolTime = 3f;
+    public int enemyCountPerSpawn = 2;
     // Spawn 함수 정의해놓고 GameManager에서 일정 시간마다 스폰되도록 수정하기
 
     void Update()
     {
-        spawnTime += Time.deltaTime;
-        if (spawnTime > 4f)
+        time += Time.deltaTime;
+        if (time > spawnCoolTime)
         {
-            spawnTime = 0;
-            ratFactory.CreateEnemy("default");
-            ratFactory.CreateEnemy("default");
+            time = 0;
+            for (int i = 0; i < enemyCountPerSpawn; i++)
+            {
+                Enemy enemy = ratFactory.CreateEnemy("default");
+                SetRandomPosition(enemy);
+            }
         }
     }
 
-    private Pos GetRandomPosition()
+    private void SetRandomPosition(Enemy enemy)
     {
-        if (spawnAreaCountPerLine % 2 == 1)
+        // 랜덤 좌표로 위치 조정
+        enemy.transform.position = new Vector3(Random.Range(minX, maxX), Random.Range(flyEnemyMinY, flyEnemyMaxY), Random.Range(minZ, maxZ));
+        
+        if (!enemy.CanFly)
         {
-            spawnAreaCountPerLine += 1;
+            RaycastHit hit;
+
+            if (Physics.Raycast(enemy.transform.position, new Vector3(0, -1, 0), out hit, 50f, 1 << 6))
+            {
+                enemy.transform.position = new Vector3(enemy.transform.position.x, hit.point.y, enemy.transform.position.z);
+            }
         }
-
-        int half = spawnAreaCountPerLine / 2;
-
-        Pos spawnPos = new Pos(Random.Range(-1 * half, half), Random.Range(-1 * half, half));
-
-        return spawnPos;
-    }
-}
-
-public struct Pos
-{
-    public int x;
-    public int y;
-
-    public Pos(int _x, int _y)
-    {
-        x = _x;
-        y = _y;
     }
 }
