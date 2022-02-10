@@ -1,4 +1,8 @@
-public class IntervalAbilityCommand
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class IntervalAbilityCommand : MonoBehaviour
 {
     private Player player;
     private List<IntervalAbility> abilities;
@@ -17,7 +21,7 @@ public class IntervalAbilityCommand
     {
         for (int i = 0; i < abilities.Count; i++)
         {
-            abilities[i].timer += Time.deltatime;
+            abilities[i].timer += Time.deltaTime;
             if (abilities[i].timer > abilities[i].cooltime)
             {
                 abilities[i].Excute();
