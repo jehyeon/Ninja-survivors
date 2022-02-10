@@ -1043,7 +1043,7 @@ GameObject:
   - component: {fileID: 1814499365164865350}
   - component: {fileID: 1814499365164865345}
   - component: {fileID: 1814499365164865346}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Rat
   m_TagString: Enemy
   m_Icon: {fileID: 0}
