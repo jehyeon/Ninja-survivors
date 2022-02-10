@@ -8,9 +8,12 @@ public class GameManager : MonoBehaviour
     private UI ui;
     private AbilityManager abilityManager;
 
+    private IntervalAbilityCommand intervalAbilityCommand;
+
     private void Awake()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
+        intervalAbilityCommand = player.GetComponent<IntervalAbilityCommand>();
         ui = GameObject.Find("Canvas").GetComponent<UI>();
 
         abilityManager = new AbilityManager();
@@ -68,6 +71,9 @@ public class GameManager : MonoBehaviour
                 // Stat 적용
                 AddStatAbility(ability.Id);
                 break;
+            case 1:
+                AddIntervalAbility(ability);
+                break;
         }
 
         // 선택한 ability를 UI에 추가
@@ -120,5 +126,10 @@ public class GameManager : MonoBehaviour
     {
         Pause();
         ui.OpenGameOverUI();
+    }
+
+    private void AddIntervalAbility(Ability ability)
+    {
+        intervalAbilityCommand.AddAbility(ability);
     }
 }

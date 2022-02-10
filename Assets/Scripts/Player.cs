@@ -8,8 +8,7 @@ public class Player : Character
 
     [SerializeField]
     public GameObject go_weapon;
-    private Sword sword;
-
+    public Sword sword;
 
     private Exp _exp;
 
