@@ -16,8 +16,12 @@ public class AbilityManager {
         Ability ability = new Ability(
             abilityId,
             data[abilityId]["name"].ToString(),
+            data[abilityId]["description"].ToString(),
+            (int)data[abilityId]["rank"],
             (int)data[abilityId]["imageId"],
-            (int)data[abilityId]["type"]
+            (int)data[abilityId]["type"],
+            (int)data[abilityId]["maxCount"],
+            (int)data[abilityId]["specialAbilityId"]
         );
 
         return ability;
