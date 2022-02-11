@@ -62,6 +62,7 @@ public class Sword : Weapon
         // 크리티컬
         if (Random.value < stat.CriticalPercent)
         {
+            // !!! 이펙트 추가하기
             other.gameObject.GetComponent<Enemy>().GetDamage(stat.Damage * 2);
         }
         else

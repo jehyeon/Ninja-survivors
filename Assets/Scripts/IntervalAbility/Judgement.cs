@@ -18,7 +18,6 @@ public class Judgement : IntervalAbility
 
     public override void Excute()
     {
-        Debug.LogFormat("{0} level Judgement 실행", level);
         // 주변 Enemy collider만 검출
         Collider[] nearColliders = Physics.OverlapSphere(player.transform.position, distance, 1 << 3);
 

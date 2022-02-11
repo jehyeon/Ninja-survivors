@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
     private Player player;
     private UI ui;
     private AbilityManager abilityManager;
-
     private IntervalAbilityCommand intervalAbilityCommand;
 
     private void Awake()
@@ -21,16 +20,18 @@ public class GameManager : MonoBehaviour
         UnPause();
     }
 
-    // Game
+    //////////////////////////////////////////////////////////
+    // Game 진행 관련 --------------------------------------- //
+    //////////////////////////////////////////////////////////
     private void Pause()
     {
-        // temp
+        // !!! temp
         Time.timeScale = 0;
     }
 
     private void UnPause()
     {
-        // temp
+        // !!! temp
         Time.timeScale = 1;
     }
 
@@ -40,7 +41,15 @@ public class GameManager : MonoBehaviour
         FillAbility();
     }
 
-    // UI
+    public void GameOver()
+    {
+        Pause();
+        ui.OpenGameOverUI();
+    }
+
+    //////////////////////////////////////////////////////////
+    // UI ------------------------------------------------- //
+    //////////////////////////////////////////////////////////
     public void UpdateHpBar()
     {
         ui.UpdateHpBar(player.Stat.Hp, player.Stat.MaxHp);
@@ -51,7 +60,9 @@ public class GameManager : MonoBehaviour
         ui.UpdateExpBar(player.exp.Now);
     }
 
-    // Ability
+    //////////////////////////////////////////////////////////
+    // Ability -------------------------------------------- //
+    //////////////////////////////////////////////////////////
     private void FillAbility()
     {
         // Ability pop up 채우기
@@ -73,6 +84,13 @@ public class GameManager : MonoBehaviour
                 break;
             case 1:
                 AddIntervalAbility(ability);
+                break;
+            case 2:
+            case 3:
+            case 4:
+                // attack chance, attack count, critical attack
+                // AttackAbilityCommand에서 처리
+                AddAttackAbility(ability);
                 break;
         }
 
@@ -122,14 +140,13 @@ public class GameManager : MonoBehaviour
         player.Stat.JumpPower += (float)(int)abilityManager.data[abilityId]["jumpPower"];
     }
 
-    public void GameOver()
-    {
-        Pause();
-        ui.OpenGameOverUI();
-    }
-
     private void AddIntervalAbility(Ability ability)
     {
         intervalAbilityCommand.AddAbility(ability);
+    }
+
+    private void AddAttackAbility(Ability ability)
+    {
+        AttackAbilityCommand.AddAbility(ability);
     }
 }
