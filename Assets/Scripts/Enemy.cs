@@ -57,7 +57,7 @@ public class Enemy : Character
         
         if (isMove)
         {
-            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(dir.normalized), Time.deltaTime * 5f);
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(dir.normalized), Time.deltaTime * 8f);
         }
     }
 

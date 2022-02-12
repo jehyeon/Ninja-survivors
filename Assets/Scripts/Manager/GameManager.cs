@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     {
         Pause();
         ui.OpenGameOverUI();
+        Cursor.lockState = CursorLockMode.None;
     }
 
     //////////////////////////////////////////////////////////

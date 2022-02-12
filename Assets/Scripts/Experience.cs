@@ -44,7 +44,7 @@ public class Experience : MonoBehaviour
 
     private void GoToPlayer()
     {
-        if (delay < .7f)
+        if (delay < .5f)
         {
             delay += Time.deltaTime;
         }
@@ -72,7 +72,6 @@ public class Experience : MonoBehaviour
         delay = 0;
         goToPlayer = false;
 
-        // !!! Exp에 따라 컬러가 바뀌도록 수정 예정
         _exp = exp;
         UpdateColor();
     }
@@ -84,25 +83,26 @@ public class Experience : MonoBehaviour
 
         if (_exp <= 10)
         {
-            // blue
-            main.startColor = new Color(0f, 0f, 180f, 255f);
-            sub.startColor = new Color(0f, 0f, 180f, 255f);
-            // sub.startColor = new Color(50f, 50f, 180f, 255f);
-
+            // Green
+            main.startColor = new Color(125f / 255f, 1f, 125f / 255f, 1f);
+            // sub.startColor = new Color(125f / 255f, 1f, 125f / 255f, 1f);
         }
         else if (_exp <= 50)
         {
+            // blue
+            main.startColor = new Color(50f / 255f, 50f / 255f, 180f / 255f, 1f);
+            // sub.startColor = new Color(0f, 0f, 180f / 255f, 1f);
+
             // pink
-            main.startColor = new Color(50f, 0f, 150f, 255f);
-            sub.startColor = new Color(50f, 0f, 150f, 255f);
+            // main.startColor = new Color(50f, 0f, 150f, 255f);
+            // sub.startColor = new Color(50f, 0f, 150f, 255f);
             // sub.startColor = new Color(90f, 30f, 190f, 255f);
         }
         else if (_exp <= 100)
         {
             // red
-            main.startColor = new Color(200f, 0f, 0f, 255f);
-            sub.startColor = new Color(200f, 0f, 0f, 255f);
-            // sub.startColor = new Color(180f, 50f, 50f, 255f);
+            main.startColor = new Color(150f / 255f, 50f / 255f, 50f / 255f, 1f);
+            // sub.startColor = new Color(180f/ 255f, 50f/ 255f, 50f/ 255f, 1f);
         }
     }
 }

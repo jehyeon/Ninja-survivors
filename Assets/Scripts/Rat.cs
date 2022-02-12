@@ -11,7 +11,7 @@ public class Rat : MeleeEnemy
         
         attackRange = 2f;
 
-        _stat.Hp = 10;
+        _stat.Hp = 5;
         _stat.Speed = 6;
         _stat.Damage = 3;
 
