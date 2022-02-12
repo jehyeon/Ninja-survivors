@@ -9,6 +9,14 @@ public class AttackAbilityCommand : MonoBehaviour
     private List<AttackCountAbility> attackCountAbilities;
     private List<CriticalAttackAbility> criticalAttackAbilities;
 
+    private void Awake()
+    {
+        attackChanceAbilities = new List<AttackChanceAbility>();
+        attackCountAbilities = new List<AttackCountAbility>();
+        criticalAttackAbilities = new List<CriticalAttackAbility>();
+        player = GameObject.Find("Player").GetComponent<Player>();
+    }
+
     public void Attack()
     {
         // Excute 실행 조건이 달라서 for 문을 나눔
@@ -56,6 +64,9 @@ public class AttackAbilityCommand : MonoBehaviour
         switch(ability.SpecialAbilityId)
         {
             case 1:
+                MissileAttack missileAttack = this.gameObject.AddComponent<MissileAttack>();
+                missileAttack.SetPlayer(player);
+                attackChanceAbilities.Add(missileAttack);
                 break;
         }
     }

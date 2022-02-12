@@ -8,11 +8,13 @@ public class GameManager : MonoBehaviour
     private UI ui;
     private AbilityManager abilityManager;
     private IntervalAbilityCommand intervalAbilityCommand;
+    private AttackAbilityCommand attackAbilityCommand;
 
     private void Awake()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
         intervalAbilityCommand = player.GetComponent<IntervalAbilityCommand>();
+        attackAbilityCommand = player.GetComponent<AttackAbilityCommand>();
         ui = GameObject.Find("Canvas").GetComponent<UI>();
 
         abilityManager = new AbilityManager();
@@ -147,6 +149,6 @@ public class GameManager : MonoBehaviour
 
     private void AddAttackAbility(Ability ability)
     {
-        AttackAbilityCommand.AddAbility(ability);
+        attackAbilityCommand.AddAbility(ability);
     }
 }

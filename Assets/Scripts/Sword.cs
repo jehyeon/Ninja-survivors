@@ -5,6 +5,7 @@ using UnityEngine;
 public class Sword : Weapon
 {
     private GameObject go_player;
+    private AttackAbilityCommand attackAbilityCommand;
     private Stat stat;
     private BoxCollider _collider;
 
@@ -14,6 +15,7 @@ public class Sword : Weapon
         GetPlayerObject();
 
         stat = go_player.GetComponent<Stat>();
+        attackAbilityCommand = go_player.GetComponent<AttackAbilityCommand>();
     }
 
     private void InitCollider()
@@ -63,10 +65,12 @@ public class Sword : Weapon
         if (Random.value < stat.CriticalPercent)
         {
             // !!! 이펙트 추가하기
+            attackAbilityCommand.CriticalAttack();      // 치명타 공격 어빌리티
             other.gameObject.GetComponent<Enemy>().GetDamage(stat.Damage * 2);
         }
         else
         {
+            attackAbilityCommand.Attack();              // 공격 시 일정확률 어빌리티
             other.gameObject.GetComponent<Enemy>().GetDamage(stat.Damage);
         }
 

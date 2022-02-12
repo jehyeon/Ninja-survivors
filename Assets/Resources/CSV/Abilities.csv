@@ -14,3 +14,4 @@ id,name,description,rank,imageId,type,maxCount,specialAbilityId,hp,hpRecovery,de
 12,Jump power+,,1,12,0,99,0,0,0,0,0,0,0,0,0,0,0,0,0,10
 13,Judgement,Inflicts judgment on nearby enemies.,1,0,1,99,1,0,0,0,0,0,0,0,0,0,0,0,0,0
 14,Reinforce Attack,Strengthen your weapon.,1,0,1,99,2,0,0,0,0,0,0,0,0,0,0,0,0,0
+15,Missile Attack,Shoot nearby enemy,1,0,2,99,1,0,0,0,0,0,0,0,0,0,0,0,0,0

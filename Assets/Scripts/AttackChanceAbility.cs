@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public abstract class IntervalAbility : MonoBehaviour
+public abstract class AttackChanceAbility : MonoBehaviour
 {
     protected int level;
-    public float chance;
+    protected float chance;
 
     public abstract void Excute();
 
