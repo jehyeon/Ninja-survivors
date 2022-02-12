@@ -29,6 +29,7 @@ public class AbilityList : MonoBehaviour
                 // Add
             go_slot.GetComponent<AbilitySlot>().Set(ability);
             go_slot.transform.parent = this.transform;
+            go_slot.transform.localScale = Vector3.one;
             abilityIds.Add(ability.Id);
         }
     }
