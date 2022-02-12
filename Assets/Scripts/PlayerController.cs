@@ -127,6 +127,7 @@ public class PlayerController : MonoBehaviour
 
     private void Attack()
     {
+        // 공격 애니메이션만 처리
         if (Input.GetMouseButtonDown(0))
         {
             animator.SetTrigger("isAttack");

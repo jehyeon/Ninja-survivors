@@ -61,9 +61,7 @@ public class IntervalAbilityCommand : MonoBehaviour
             // Bug
             return;
         }
-
-        Debug.LogFormat("{0} {1} {2}", ability.Id, ability.Type, ability.SpecialAbilityId);
-
+        
         if (!LevelUpAbility(ability.Type))
         {
             // 같은 어빌리티가 이미 있으면 레벨 업, 없으면 새로 추가
