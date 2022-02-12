@@ -21,7 +21,7 @@ public class Sword : Weapon
         _collider = gameObject.AddComponent<BoxCollider>();
         _collider.isTrigger = true;
         _collider.enabled = false;
-        _collider.size = new Vector3(0.5f, _collider.size.y, 0.5f);
+        _collider.size = new Vector3(0.5f, _collider.size.y * 1.2f, 0.5f);
     }
     
     private void GetPlayerObject()
