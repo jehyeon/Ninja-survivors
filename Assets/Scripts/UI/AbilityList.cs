@@ -26,9 +26,10 @@ public class AbilityList : MonoBehaviour
             // Object pool에서 가져옴
             GameObject go_slot = abilitySlotOP.Get();
 
-                // Add
+            // Add
             go_slot.GetComponent<AbilitySlot>().Set(ability);
             go_slot.transform.parent = this.transform;
+            go_slot.transform.localScale = Vector3.one;
             abilityIds.Add(ability.Id);
         }
     }

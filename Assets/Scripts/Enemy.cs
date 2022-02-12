@@ -37,7 +37,6 @@ public class Enemy : Character
         EnableAttack();
         Move();
         Rotate();
-        Die();
     }
 
     protected virtual void Move()
@@ -93,6 +92,8 @@ public class Enemy : Character
     public void GetDamage(int damage)
     {
         _stat.DecreaseHp(damage);
+
+        Die();  // GetDamage 이후 체력이 0 이하인 지 확인
     }
 
     private void Die()
