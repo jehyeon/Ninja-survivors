@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
         abilityManager = new AbilityManager();
 
         UnPause();
+        Cursor.lockState = CursorLockMode.Locked;   // 마우스 고정
     }
 
     //////////////////////////////////////////////////////////
@@ -71,6 +72,8 @@ public class GameManager : MonoBehaviour
         ui.OpenAbilityPopups();
         ui.FillAbilityPopups(abilityManager.GetRandomAbility());
         Pause();    // 일시 정지
+        
+        Cursor.lockState = CursorLockMode.None;     // 마우스 고정 해제
     }
 
     public void SelectAbility(Ability ability)
@@ -100,6 +103,7 @@ public class GameManager : MonoBehaviour
         ui.AddAbilitySlot(ability);
 
         UnPause();  // 일시정지 해제
+        Cursor.lockState = CursorLockMode.Locked;   // 마우스 고정
     }
 
     // Stat 어빌리티
