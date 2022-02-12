@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    public GameObject target;
+    public Enemy target;
     private ObjectPool missileOP;
 
     private float delay;
@@ -31,7 +31,7 @@ public class Missile : MonoBehaviour
 
     private void Update()
     {
-        if (target == null || !target.activeSelf)
+        if (target == null || !target.enemyCollider.enabled)
         {
             // go to enemy
             FindAnotherEnemy();
@@ -51,7 +51,7 @@ public class Missile : MonoBehaviour
             goToEnemy = true;
         }
 
-        if (goToEnemy && (target != null || target.activeSelf == true))
+        if (goToEnemy && target != null && target.enemyCollider.enabled)
         {
             Vector3 dir = target.transform.position + new Vector3(0, 1f, 0) - this.transform.position;
             this.transform.position += dir.normalized * Time.deltaTime * speed;
@@ -65,7 +65,7 @@ public class Missile : MonoBehaviour
 
     private void SetTarget(GameObject enemy)
     {
-        target = enemy;
+        target = enemy.GetComponent<Enemy>();
     }
 
     private void FindAnotherEnemy()

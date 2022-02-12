@@ -10,9 +10,9 @@ public class BlackNight : MeleeEnemy
         
         attackRange = 3f;
 
-        _stat.Hp = 100;
+        _stat.Hp = 1;
         _stat.Speed = 3;
-        _stat.Damage = 50;
+        _stat.Damage = 1;
 
         exp = 100;
     }

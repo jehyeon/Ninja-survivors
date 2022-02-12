@@ -10,10 +10,13 @@ public class Enemy : Character
     protected float attackRange;
     protected bool canFly;    // 공중 유닛이면 true
     protected int exp;
+    protected bool isDie;
     protected Vector3 dir;
+    public Collider enemyCollider;
+    private Rigidbody enemyRigidbody;
 
     // target
-    protected GameObject player;
+    protected Player player;
 
     // About Exp
     private ObjectPool expOP;
@@ -27,8 +30,14 @@ public class Enemy : Character
     {
         base.Awake();
 
-        player = GameObject.Find("Player");
+        player = GameObject.Find("Player").GetComponent<Player>();
         expOP = GameObject.Find("Exp Object Pool").GetComponent<ObjectPool>();
+        enemyCollider = GetComponent<Collider>();
+        enemyRigidbody = GetComponent<Rigidbody>();
+        isDie = false;
+        // enemyCollider.enabled = true;
+        // enemyRigidbody.useGravity = true;
+        // enemyRigidbody.isKinematic = true;
     }
 
     protected virtual void Update()
@@ -104,34 +113,77 @@ public class Enemy : Character
     {
         _stat.DecreaseHp(damage);
 
-        Die();
+        if (_stat.Hp <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            animator.SetTrigger("isHit");
+        }
     }
 
     private void Die()
     {
-        if (_stat.Hp <= 0)
+        // Die animation
+        animator.SetTrigger("isDie");
+        isDie = true;
+        isMove = false;
+        enemyCollider.enabled = false;
+        enemyRigidbody.useGravity = false;
+
+        KillToHpRecovery();     // 플레이어 처치당 체력 회복
+        DropExp();              // 경험치 드랍
+        
+        Invoke("GoUnderGround", 5f);    // 5초 뒤 바닥으로 사라짐
+    }
+
+    private void DropExp()
+    {
+        GameObject go_exp = expOP.Get();
+        go_exp.GetComponent<Experience>().SetExp(exp);
+        go_exp.transform.position = this.transform.position + new Vector3(0, 1f, 0);    // offset
+    }
+
+    private void KillToHpRecovery()
+    {
+        int hpRecoveryPerKill = player.Stat.KillHpAbsorption;
+        if (hpRecoveryPerKill > 0)
         {
-            // 경험치 드랍
-            GameObject go_exp = expOP.Get();
-            go_exp.GetComponent<Experience>().SetExp(exp);
-            go_exp.transform.position = this.transform.position + new Vector3(0, 1f, 0);    // offset
-
-            // 적 처치시 체력회복
-            int hpRecoveryPerKill = player.GetComponent<Player>().Stat.KillHpAbsorption;
-            if (hpRecoveryPerKill > 0)
-            {
-                player.GetComponent<Player>().Stat.Heal(hpRecoveryPerKill);
-            }
-
-            if (enemyOP == null)
-            {
-                // 오브젝트 풀이 할당이 안된 경우 Destroy
-                Destroy(this.gameObject);
-            }
-            else
-            {
-                enemyOP.Return(this.gameObject);
-            }
+            player.GetComponent<Player>().Stat.Heal(hpRecoveryPerKill);
         }
-    }    
+    }
+
+    private void GoUnderGround()
+    {
+        enemyRigidbody.useGravity = true;
+        Invoke("ReturnOP", 2f);     // 2초 뒤 초기화 후 오브젝트 풀로 return
+    }
+
+    private void ReturnOP()
+    {
+        if (enemyOP == null)
+        {
+            // 오브젝트 풀이 할당이 안된 경우 Destroy
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            // 리셋 후 오브젝트 풀로 return
+            Reset();
+            enemyOP.Return(this.gameObject);
+        }
+    }
+
+    private void Reset()
+    {
+        // 애니메이션 초기화
+        animator.SetTrigger("Reset");
+
+        // 설정 리셋
+        isDie = false;
+        enemyCollider.enabled = true;
+        enemyRigidbody.useGravity = true;
+        this.Stat.HpReset();
+    }
 }

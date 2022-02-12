@@ -69,4 +69,9 @@ public class Stat : MonoBehaviour
             _hp = _maxHp;
         }
     }
+
+    public void HpReset()
+    {
+        _hp = _maxHp;
+    }
 }

@@ -25,17 +25,4 @@ public class Rat : MeleeEnemy
         // isAttack Trigger 시 Weapon collider 활성화
         ActivateWeapon();
     }
-   protected new void ActivateWeapon()
-    {
-        if (animator.GetCurrentAnimatorStateInfo(1).IsName("Attack"))
-        {
-            enemyWeaponCollider.enabled = true;
-            isMove = false;
-        }
-        else
-        {
-            enemyWeaponCollider.enabled = false;
-            isMove = true;
-        }
-    }    
 }

@@ -21,7 +21,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 7654c7d3268f8684b8dae2c54367d893, type: 3}
+  m_Motion: {fileID: 7400000, guid: edc2f8f10f4a53d4485daa9ea828cbdb, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -101,7 +101,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 90e60fd1c7ed03341b434e3948824545, type: 3}
+  m_Motion: {fileID: 7400000, guid: 8eb3c7454e8c7454dbf2ab891d586d7a, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -156,7 +156,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: af71c2d4f33928149a59f7335767a683, type: 3}
+  m_Motion: {fileID: 7400000, guid: 16bcb61326038054695e9860eb3a3e34, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -218,7 +218,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 52a1c14bfc6d3e548b7b348b3f1954cf, type: 3}
+  m_Motion: {fileID: 7400000, guid: b6f6bbe07a834a5498dc7c1e2fff6e8d, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -430,7 +430,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Crab
+  m_Name: BlackNight
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: isMove

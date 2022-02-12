@@ -1894,7 +1894,7 @@ Animator:
   m_GameObject: {fileID: 1770788994258484086}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 058130341c952e1439ea61629af6fa5e, type: 3}
-  m_Controller: {fileID: 9100000, guid: 30f3525b20b6e1a4485e18957bb11d4c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 56dc881ba914c784685f09a0bd9e5a2d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1945,6 +1945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3aab20a1da01dd4e81092d827d625ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyCollider: {fileID: 0}
   go_enemyWeapon: {fileID: 3988975540911232613}
 --- !u!1 &1770788994258484088
 GameObject:

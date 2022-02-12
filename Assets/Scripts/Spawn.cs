@@ -38,7 +38,7 @@ public class Spawn : MonoBehaviour
             time = 0;
             for (int i = 0; i < enemyCountPerSpawn; i++)
             {
-                Enemy enemy = ratFactory.CreateEnemy("default");
+                Enemy enemy = blackNightFactory.CreateEnemy("default");
                 SetRandomPosition(enemy);
             }
         }

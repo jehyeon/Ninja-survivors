@@ -26,7 +26,11 @@ public class MeleeEnemy : Enemy
         else
         {
             enemyWeaponCollider.enabled = false;
-            isMove = true;
+
+            if (!isDie)
+            {
+                isMove = true;
+            }
         }
     }
 }

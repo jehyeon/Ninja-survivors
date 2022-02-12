@@ -11,9 +11,9 @@ public class Crab : MeleeEnemy
         
         attackRange = 3f;
 
-        _stat.Hp = 15;
+        _stat.Hp = 1;
         _stat.Speed = 3;
-        _stat.Damage = 10;
+        _stat.Damage = 1;
 
         exp = 20;
     }
