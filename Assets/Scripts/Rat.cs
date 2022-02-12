@@ -11,7 +11,7 @@ public class Rat : MeleeEnemy
         
         attackRange = 2f;
 
-        _stat.Hp = 20;
+        _stat.Hp = 10;
         _stat.Speed = 6;
         _stat.Damage = 3;
 
@@ -30,11 +30,12 @@ public class Rat : MeleeEnemy
         if (animator.GetCurrentAnimatorStateInfo(1).IsName("Attack"))
         {
             enemyWeaponCollider.enabled = true;
+            isMove = false;
         }
         else
         {
-            isMove = false;
             enemyWeaponCollider.enabled = false;
+            isMove = true;
         }
     }    
 }

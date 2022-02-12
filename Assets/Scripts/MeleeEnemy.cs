@@ -25,8 +25,8 @@ public class MeleeEnemy : Enemy
         }
         else
         {
-            isMove = true;
             enemyWeaponCollider.enabled = false;
+            isMove = true;
         }
     }
 }

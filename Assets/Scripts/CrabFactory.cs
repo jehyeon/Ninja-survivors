@@ -9,7 +9,6 @@ public class CrabFactory : AbsEnemyFactory
     private void Awake()
     {
         crabOP = GameObject.Find("Crab Object Pool").GetComponent<ObjectPool>();
-        Debug.Log(crabOP);
     }
 
     public override Enemy CreateEnemy(string type)
