@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Experience : MonoBehaviour
 {
-    private int _exp;
+    public int _exp;
     private static float speed = 15f;
+    private float delay;
 
     private bool goToPlayer;
     private GameObject player;
     private ObjectPool expOP;
     
-    private float delay;
-    
+    [SerializeField]
+    private ParticleSystem mainPs;    // main particle
+    [SerializeField]
+    private ParticleSystem subPs;    // sub particle
 
     void Awake()
     {
@@ -54,6 +57,8 @@ public class Experience : MonoBehaviour
         {
             Vector3 dir = player.transform.position + new Vector3(0, 1f, 0) - this.transform.position;
             this.transform.position += dir.normalized * Time.deltaTime * speed;
+
+            this.transform.rotation = Quaternion.LookRotation(dir);
         }
         else
         {
@@ -69,5 +74,35 @@ public class Experience : MonoBehaviour
 
         // !!! Exp에 따라 컬러가 바뀌도록 수정 예정
         _exp = exp;
+        UpdateColor();
+    }
+
+    private void UpdateColor()
+    {
+        var main = mainPs.main;
+        var sub = subPs.main;
+
+        if (_exp <= 10)
+        {
+            // blue
+            main.startColor = new Color(0f, 0f, 180f, 255f);
+            sub.startColor = new Color(0f, 0f, 180f, 255f);
+            // sub.startColor = new Color(50f, 50f, 180f, 255f);
+
+        }
+        else if (_exp <= 50)
+        {
+            // pink
+            main.startColor = new Color(50f, 0f, 150f, 255f);
+            sub.startColor = new Color(50f, 0f, 150f, 255f);
+            // sub.startColor = new Color(90f, 30f, 190f, 255f);
+        }
+        else if (_exp <= 100)
+        {
+            // red
+            main.startColor = new Color(200f, 0f, 0f, 255f);
+            sub.startColor = new Color(200f, 0f, 0f, 255f);
+            // sub.startColor = new Color(180f, 50f, 50f, 255f);
+        }
     }
 }
