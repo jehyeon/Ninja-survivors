@@ -11,9 +11,9 @@ public class Rat : MeleeEnemy
         
         attackRange = 2f;
 
-        _stat.Hp = 10;
+        _stat.Hp = 20;
         _stat.Speed = 6;
-        _stat.Damage = 1;
+        _stat.Damage = 3;
 
         exp = 10;
     }
@@ -25,4 +25,15 @@ public class Rat : MeleeEnemy
         // isAttack Trigger 시 Weapon collider 활성화
         ActivateWeapon();
     }
+   protected new void ActivateWeapon()
+    {
+        if (animator.GetCurrentAnimatorStateInfo(1).IsName("Attack"))
+        {
+            enemyWeaponCollider.enabled = true;
+        }
+        else
+        {
+            enemyWeaponCollider.enabled = false;
+        }
+    }    
 }

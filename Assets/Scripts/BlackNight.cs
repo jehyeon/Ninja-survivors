@@ -8,13 +8,13 @@ public class BlackNight : MeleeEnemy
     {
         canFly = false;
         
-        attackRange = 2f;
+        attackRange = 3f;
 
-        _stat.Hp = 200;
+        _stat.Hp = 100;
         _stat.Speed = 3;
         _stat.Damage = 50;
 
-        exp = 200;
+        exp = 100;
     }
 
     protected override void Update()

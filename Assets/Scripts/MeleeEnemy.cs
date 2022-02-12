@@ -18,7 +18,7 @@ public class MeleeEnemy : Enemy
     // 무기 collider 활성화
     protected void ActivateWeapon()
     {
-        if (animator.GetCurrentAnimatorStateInfo(1).IsName("Attack"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
             enemyWeaponCollider.enabled = true;
         }
