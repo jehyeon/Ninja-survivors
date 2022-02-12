@@ -1861,7 +1861,7 @@ GameObject:
   - component: {fileID: 3988975541950264750}
   - component: {fileID: 3988975541950264745}
   - component: {fileID: 3988975541950264744}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Crab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

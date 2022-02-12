@@ -33,6 +33,7 @@ public class Rat : MeleeEnemy
         }
         else
         {
+            isMove = false;
             enemyWeaponCollider.enabled = false;
         }
     }    

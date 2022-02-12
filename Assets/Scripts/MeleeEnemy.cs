@@ -21,9 +21,11 @@ public class MeleeEnemy : Enemy
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
             enemyWeaponCollider.enabled = true;
+            isMove = false;
         }
         else
         {
+            isMove = true;
             enemyWeaponCollider.enabled = false;
         }
     }

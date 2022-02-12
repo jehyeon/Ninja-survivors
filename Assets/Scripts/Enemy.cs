@@ -6,7 +6,6 @@ public class Enemy : Character
 {
     // this
     protected bool isMove;
-    protected bool isAttack;
     protected bool canAttack;     // 공격 범위 안에 있는지
     protected float attackRange;
     protected bool canFly;    // 공중 유닛이면 true
@@ -56,7 +55,10 @@ public class Enemy : Character
             dir.y = 0f;
         }
         
-        this.transform.rotation = Quaternion.LookRotation(dir.normalized);
+        if (isMove)
+        {
+            this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(dir.normalized), Time.deltaTime * 5f);
+        }
     }
 
     protected void EnableAttack()
@@ -65,14 +67,23 @@ public class Enemy : Character
 
         if (dir.magnitude < attackRange)
         {
-            isMove = false;
-            animator.SetBool("isMove", false);
-            isAttack = true;
-            animator.SetTrigger("isAttack");
+            canAttack = true;       // 가까이 있음
         }
         else
         {
-            isMove = true;
+            canAttack = false;
+        }
+
+        if (canAttack)
+        {
+            float angle = Vector3.Angle(dir, this.transform.forward);
+
+            if (angle < 15)
+            {
+                // 전방 30도 이내에 적이 있는 경우에만 공격
+                animator.SetBool("isMove", false);
+                animator.SetTrigger("isAttack");        // MeleeEnemy는 공격 애니메이션 중 isMove = false
+            }
         }
     }
 
