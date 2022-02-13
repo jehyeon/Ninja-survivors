@@ -21,7 +21,7 @@ public class Missile : MonoBehaviour
 
         goToEnemy = false;
         delay = 0f;
-        speed = 10f;
+        speed = 20f;
         damage = 5;
 
         distance = 30f;
