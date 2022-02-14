@@ -15,12 +15,22 @@ public class PlayerController : MonoBehaviour
     private bool isJump;
     private float jumpingTime = 0f;
     
+    // 스킬 커맨드
+    private SkillCommandManager skillCommandManager = null;
+
     void Start()
     {
         cc = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         playerCamera = GameObject.Find("Main Camera");
         stat = GetComponent<Stat>();
+
+        // 스킬 커맨드 생성
+        skillCommandManager = new SkillCommandManager();
+        // Dash dashSkillCommand = new Dash(this.transform);
+        Dash dashSkillCommand = gameObject.AddComponent<Dash>();
+        dashSkillCommand.SetTransform(this.transform);
+        skillCommandManager.SetSkillCommand("Dash", dashSkillCommand);
     }
 
     // Update is called once per frame
@@ -66,9 +76,15 @@ public class PlayerController : MonoBehaviour
             }
 
             // Jump
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 moveDir.y = stat.JumpPower;
+            }
+
+            // 이동기
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                skillCommandManager.InvokeExecute("Dash");
             }
 
             // Animator
