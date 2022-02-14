@@ -2365,7 +2365,7 @@ GameObject:
   - component: {fileID: 806720960803373332}
   - component: {fileID: 806720960795963094}
   m_Layer: 0
-  m_Name: LizardWarrior 1
+  m_Name: BlueLizard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 361189146705745573}
   - component: {fileID: 361189146712717653}
   m_Layer: 0
-  m_Name: CrabMonster 1
+  m_Name: GoldCrab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

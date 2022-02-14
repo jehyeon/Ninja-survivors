@@ -1595,7 +1595,7 @@ GameObject:
   - component: {fileID: 466625055773112646}
   - component: {fileID: 466625055765419652}
   m_Layer: 0
-  m_Name: LizardWarrior
+  m_Name: Lizard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

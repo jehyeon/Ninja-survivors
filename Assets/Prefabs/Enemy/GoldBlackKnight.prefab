@@ -1414,7 +1414,7 @@ GameObject:
   - component: {fileID: 8037379983249300719}
   - component: {fileID: 8037379983259087627}
   m_Layer: 0
-  m_Name: BlackKnight 1
+  m_Name: GoldBlackKnight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

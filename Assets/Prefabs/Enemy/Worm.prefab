@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 6614396397511216411}
   - component: {fileID: 6614396397520249529}
   m_Layer: 0
-  m_Name: WormMonsterMesh
+  m_Name: Worm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
