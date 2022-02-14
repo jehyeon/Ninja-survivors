@@ -1470,8 +1470,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolingObjectPref: {fileID: 7302528051333438687, guid: c17f983eb640cfc40a0c8e000ae16853, type: 3}
-  _count: 50
-  _additionalCount: 5
+  _count: 1
+  _additionalCount: 1
 --- !u!4 &997894104 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5797046645395843900, guid: d9fd817d393abe64cbf765fee46ac870, type: 3}
@@ -2797,8 +2797,9 @@ MonoBehaviour:
   crabFactory: {fileID: 2044467084}
   blackNightFactory: {fileID: 2044467085}
   specterFactory: {fileID: 2044467086}
-  spawnCoolTime: 3
-  enemyCountPerSpawn: 2
+  enemyCount: 0
+  spawnCoolTime: 1
+  enemyCountPerSpawn: 1
 --- !u!4 &2044467082
 Transform:
   m_ObjectHideFlags: 0

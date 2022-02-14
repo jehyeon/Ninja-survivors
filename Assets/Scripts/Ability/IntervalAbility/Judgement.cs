@@ -12,7 +12,7 @@ public class Judgement : IntervalAbility
     {
         level = 1;
         timer = 0f;
-        cooltime = 3f;
+        cooltime = 5f;
 
         distance = 10f;
 
@@ -35,7 +35,7 @@ public class Judgement : IntervalAbility
         GameObject effect = effectOP.Get();
         effect.transform.position = nearColliders[0].transform.position + new Vector3(0, 0.5f, 0);
         effect.GetComponent<ParticleSystem>().Play();
-        nearColliders[0].GetComponent<Enemy>().GetDamage(30);
+        nearColliders[0].GetComponent<Enemy>().GetDamage(25);
     }
 
     public void GetPlayer(Player _player)

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Exp
 {
-    private static int firstRequireExp = 50;
+    private static int firstRequireExp = 10;
     private float _amount;    // 누적 경험치
     private int _level;     // 현재 레벨
     private float _now;     // 현재 경험치 percent

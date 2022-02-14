@@ -22,9 +22,9 @@ public class Missile : MonoBehaviour
         goToEnemy = false;
         delay = 0f;
         speed = 20f;
-        damage = 5;
+        damage = 10;
 
-        distance = 30f;
+        distance = 50f;
         existTime = 0f;     // 새로운 enemy를 찾는 시간
         timeOut = 5f;       // 5초 동안 enemy를 못 찾으면 사라짐
     }

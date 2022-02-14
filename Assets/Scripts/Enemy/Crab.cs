@@ -11,11 +11,11 @@ public class Crab : MeleeEnemy
         
         attackRange = 3f;
 
-        _stat.Hp = 1;
+        _stat.Hp = 5;
         _stat.Speed = 3;
-        _stat.Damage = 1;
+        _stat.Damage = 5;
 
-        exp = 20;
+        exp = 10;
     }
 
     protected override void Update()

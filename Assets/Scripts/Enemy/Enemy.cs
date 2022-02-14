@@ -17,6 +17,8 @@ public class Enemy : Character
 
     // target
     protected Player player;
+    private SpawnSystem spawnSystem;
+    public SpawnSystem SpawnSystem { get { return spawnSystem; } set { spawnSystem = value; } }
 
     // About Exp
     private ObjectPool expOP;
@@ -108,6 +110,7 @@ public class Enemy : Character
     // 피격
     public void GetDamage(int damage)
     {
+        Debug.Log(damage);
         _stat.DecreaseHp(damage);
 
         if (_stat.Hp <= 0)
@@ -122,6 +125,9 @@ public class Enemy : Character
 
     private void Die()
     {
+        // 스폰 카운트 - 1
+        spawnSystem.DecreaseCount();
+
         // Die animation
         animator.SetTrigger("isDie");
         isDie = true;
