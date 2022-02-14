@@ -22,6 +22,8 @@ public class Spawn : MonoBehaviour
     private CrabFactory crabFactory;
     [SerializeField]
     private BlackNightFactory blackNightFactory;
+    [SerializeField]
+    private SpecterFactory specterFactory;
 
     private float time = 0f;
 
@@ -38,7 +40,7 @@ public class Spawn : MonoBehaviour
             time = 0;
             for (int i = 0; i < enemyCountPerSpawn; i++)
             {
-                Enemy enemy = blackNightFactory.CreateEnemy("default");
+                Enemy enemy = specterFactory.CreateEnemy("default");
                 SetRandomPosition(enemy);
             }
         }

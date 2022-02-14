@@ -103,6 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7302528051333136679}
   - component: {fileID: 7302528051347099767}
+  - component: {fileID: 4785572735415412613}
   m_Layer: 0
   m_Name: SwordMesh
   m_TagString: Untagged
@@ -138,6 +139,8 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 3
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -149,6 +152,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -236,6 +240,19 @@ SkinnedMeshRenderer:
     m_Center: {x: -1.0653145, y: -0.8927318, z: 0.8608799}
     m_Extent: {x: 1.1685565, y: 0.39376533, z: 0.2226009}
   m_DirtyAABB: 0
+--- !u!65 &4785572735415412613
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7302528051333438663}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.49337852, y: 0.96142036, z: 2.3838599}
+  m_Center: {x: 0.90619, y: -1.0739454, z: -0.38768137}
 --- !u!1 &7302528051333438665
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,6 +608,8 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 3
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -602,6 +621,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -699,9 +719,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7302528051333136701}
   - component: {fileID: 7302528051342962357}
-  m_Layer: 0
+  - component: {fileID: 6334446407405831659}
+  - component: {fileID: -5007697062292471008}
+  - component: {fileID: 1484740818176746299}
+  m_Layer: 3
   m_Name: Specter
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -732,7 +755,7 @@ Animator:
   m_GameObject: {fileID: 7302528051333438687}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 335913e5fc93d3647a1acf9ab8515193, type: 3}
-  m_Controller: {fileID: 9100000, guid: 3e1ebdda2eb16b246a0c84ea97771619, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0bbecaf835754d14483ccd3019ae1a8f, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -741,6 +764,50 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6334446407405831659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7302528051333438687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45f2766b786b5cd44a0e604f6ca57dec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCollider: {fileID: 0}
+  go_enemyWeapon: {fileID: 7302528051333438663}
+--- !u!136 &-5007697062292471008
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7302528051333438687}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.71
+  m_Height: 2.79
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.47, z: 0}
+--- !u!54 &1484740818176746299
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7302528051333438687}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7302528051333438709
 GameObject:
   m_ObjectHideFlags: 0

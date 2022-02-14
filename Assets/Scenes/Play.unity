@@ -1422,9 +1422,56 @@ Transform:
   - {fileID: 270838375}
   - {fileID: 997894104}
   - {fileID: 5797046645508929107}
+  - {fileID: 973538342}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &973538341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 973538342}
+  - component: {fileID: 973538343}
+  m_Layer: 0
+  m_Name: Specter Object Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &973538342
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973538341}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 762691091}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &973538343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973538341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11d2804febd911444a918b6c3869b99e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolingObjectPref: {fileID: 7302528051333438687, guid: c17f983eb640cfc40a0c8e000ae16853, type: 3}
+  _count: 50
+  _additionalCount: 5
 --- !u!4 &997894104 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5797046645395843900, guid: d9fd817d393abe64cbf765fee46ac870, type: 3}
@@ -2720,6 +2767,7 @@ GameObject:
   - component: {fileID: 2044467083}
   - component: {fileID: 2044467084}
   - component: {fileID: 2044467085}
+  - component: {fileID: 2044467086}
   m_Layer: 0
   m_Name: Spawn System
   m_TagString: Untagged
@@ -2748,6 +2796,7 @@ MonoBehaviour:
   ratFactory: {fileID: 2044467083}
   crabFactory: {fileID: 2044467084}
   blackNightFactory: {fileID: 2044467085}
+  specterFactory: {fileID: 2044467086}
   spawnCoolTime: 3
   enemyCountPerSpawn: 2
 --- !u!4 &2044467082
@@ -2798,6 +2847,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05a7e8ef7474c4a4fa67ce3829371f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2044467086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044467080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b674dfe9b17ac434b9e459f6b87e885c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &2053502095 stripped

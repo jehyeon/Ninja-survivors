@@ -35,9 +35,6 @@ public class Enemy : Character
         enemyCollider = GetComponent<Collider>();
         enemyRigidbody = GetComponent<Rigidbody>();
         isDie = false;
-        // enemyCollider.enabled = true;
-        // enemyRigidbody.useGravity = true;
-        // enemyRigidbody.isKinematic = true;
     }
 
     protected virtual void Update()
@@ -131,6 +128,11 @@ public class Enemy : Character
         isMove = false;
         enemyCollider.enabled = false;
         enemyRigidbody.useGravity = false;
+        if (canFly)
+        {
+            // 공중에서 죽어도 떨어지도록
+            enemyRigidbody.useGravity = true;
+        }
 
         KillToHpRecovery();     // 플레이어 처치당 체력 회복
         DropExp();              // 경험치 드랍
@@ -184,6 +186,11 @@ public class Enemy : Character
         isDie = false;
         enemyCollider.enabled = true;
         enemyRigidbody.useGravity = true;
+        if (canFly)
+        {
+            // 공중 유닛은 중력 영향을 안 받음
+            enemyRigidbody.useGravity = false;
+        }
         this.Stat.HpReset();
     }
 }
