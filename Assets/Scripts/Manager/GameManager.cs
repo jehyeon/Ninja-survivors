@@ -82,6 +82,8 @@ public class GameManager : MonoBehaviour
         // Ability pop up에서 선택
         ui.CloseAbilityPopups();
 
+        abilityManager.DecreaseAbilityMaxCount(ability.Id);
+        
         switch (ability.Type)
         {
             case 0:
