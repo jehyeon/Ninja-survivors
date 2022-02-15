@@ -19,6 +19,7 @@ public class AbilityList : MonoBehaviour
         int index = abilityIds.IndexOf(ability.Id);
         if (index > -1)
         {
+            // 현재 AbilityList에 있는 경우 Level up
             this.transform.GetChild(index).GetComponent<AbilitySlot>().UpdateCount();
         }
         else
@@ -26,7 +27,7 @@ public class AbilityList : MonoBehaviour
             // Object pool에서 가져옴
             GameObject go_slot = abilitySlotOP.Get();
 
-                // Add
+            // Add
             go_slot.GetComponent<AbilitySlot>().Set(ability);
             go_slot.transform.parent = this.transform;
             go_slot.transform.localScale = Vector3.one;

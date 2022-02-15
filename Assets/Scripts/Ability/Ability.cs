@@ -5,11 +5,11 @@ public class Ability
     private int _id;
     private string _name;
     private string _description;
-    private int _rank;          // 0: Common, 1: UnCommon, 2: Rare, 3: Unique
+    private int _rank;              // 0: Common, 1: UnCommon, 2: Rare, 3: Unique
     private Sprite _sprite;
-    private int _type;          // 0: stat, 1: interval
-    private int _count;
-    private int _maxCount;
+    private int _type;              // 0: stat, 1: interval
+    private int _count;             // Level
+    private int _maxCount;          // Max Level
     private int _specialAbilityId;
 
     public int Id { get { return _id; } }
