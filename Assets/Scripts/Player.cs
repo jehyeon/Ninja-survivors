@@ -12,23 +12,6 @@ public class Player : Character
 
     private Exp _exp;
 
-    // temp for test
-    public int Hp;
-    public int HpRecovery;
-    public float Defense;
-    public float EvasionPercent;
-
-    public float Speed;
-    public float JumpPower;
-
-    public int Damage;
-    public int AttackHpAbsorption;
-    public int KillHpAbsorption;
-    public float CriticalPercent;
-    public float DoublePercent;
-    public float AttackSpeed;
-    public int AttackRange;
-
     // Cool time
     private float hpRecoveryCooltime;
 

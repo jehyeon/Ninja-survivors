@@ -46,14 +46,17 @@ public class AttackAbilityCommand : MonoBehaviour
         {
             case 2:
                 // Attack chance
+                // -> !!! check exist
                 AddAttackChanceAbility(ability);
                 break;
             case 3:
                 // Attack count
+                // -> !!! check exist
                 AddAttackCountAbility(ability);
                 break;
             case 4:
                 // Critical attack
+                // -> !!! check exist
                 AddCriticalAttackAbility(ability);
                 break;
         }

@@ -82,6 +82,9 @@ public class GameManager : MonoBehaviour
         // Ability pop up에서 선택
         ui.CloseAbilityPopups();
 
+        // abilityManager에서 남은 어빌리티 잔여 수 확인
+        abilityManager.DecreaseAbilityMaxCount(ability.Id);
+        
         switch (ability.Type)
         {
             case 0:
@@ -102,6 +105,8 @@ public class GameManager : MonoBehaviour
 
         // 선택한 ability를 UI에 추가
         ui.AddAbilitySlot(ability);
+
+        // !!! 어빌리티 합성 시스템 추가
 
         UnPause();  // 일시정지 해제
         Cursor.lockState = CursorLockMode.Locked;   // 마우스 고정
