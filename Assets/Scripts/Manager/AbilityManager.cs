@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ public class AbilityManager {
     public AbilityManager()
     {
         data = CSVReader.Read("CSV/Abilities");
+        commonAbilityIds = new List<int>();
+        uncommonAbilityIds = new List<int>();
+        rareAbilityIds = new List<int>();
         SeperateAbility();  // data -> Common, Uncommon, Rare
     }
 
@@ -18,12 +22,12 @@ public class AbilityManager {
     {
         if (abilityCount == 0)
         {
-            return;
+            return new List<Ability>();
         }
 
         // rank 선택
         List<int> selected = null;
-        switch (abilityType)
+        switch (abilityRank)
         {
             case "Rare":
                 selected = rareAbilityIds;
@@ -39,7 +43,7 @@ public class AbilityManager {
         // 선택된 어빌리티 리스트 셔플 후 abilityCount만큼 추출 (중복 X)
         Shuffle(selected);
         List<Ability> abilities = new List<Ability>();
-        foreach (int abilityId in selected.Slice(0, abilityCount - 1))
+        foreach (int abilityId in selected.GetRange(0, abilityCount))
         {
             abilities.Add(new Ability(
                 abilityId,
@@ -67,9 +71,7 @@ public class AbilityManager {
 
         for (int i = 0; i < numOfTry; i++)
         {
-            Random random = new Random();
-            float randomValue = Mathf.Round(random.NextDouble(), 4);
-            
+            float randomValue = Mathf.Round(UnityEngine.Random.value * 1000f) * 0.001f;
             if (randomValue <= 0.0527)
             {
                 rareCount += 1;
@@ -90,7 +92,7 @@ public class AbilityManager {
         abilities.AddRange(GetAbilityByType("Uncommon", uncommonCount));
         abilities.AddRange(GetAbilityByType("Common", commonCount));
         // var matches = dictionary.Where(kvp => !kvp.Value.BooleanProperty);
-        Debug.Log(abilities);   // <- return; 인 항목도 List에 추가되는 지 확인하기
+        // Debug.Log(String.Join(", ", abilities.ToArray()));   // <- return; 인 항목도 List에 추가되는 지 확인하기
 
         return abilities;
     }
@@ -101,7 +103,6 @@ public class AbilityManager {
         if (data == null)
         {
             data = CSVReader.Read("CSV/Abilities");
-            _count = data.Count;
         }
 
         for (int i = 0; i < data.Count; i++)
@@ -128,7 +129,7 @@ public class AbilityManager {
     {
         for (int i = 0; i < list.Count; i++)
         {
-            int newIndex = Random.Range(0, list.Count);
+            int newIndex = UnityEngine.Random.Range(0, list.Count);
             int temp = list[i];
             list[i] = list[newIndex];
             list[newIndex] = temp;
@@ -137,9 +138,9 @@ public class AbilityManager {
 
     public void DecreaseAbilityMaxCount(int abilityId)
     {
-        data[abilityId]["maxCount"] -= 1;
+        data[abilityId]["maxCount"] = (int)data[abilityId]["maxCount"] - 1;
 
-        if (data[abilityId]["maxCount"] <= 0)
+        if ((int)data[abilityId]["maxCount"] <= 0)
         {
             // 최대 레벨 달성
             // 어빌리티 목록에서 삭제 -> 더 이상 안 나옴
