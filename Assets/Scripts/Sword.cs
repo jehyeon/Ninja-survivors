@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Sword : Weapon
 {
+    [SerializeField]
     private GameObject go_player;
     private AttackAbilityCommand attackAbilityCommand;
     private Stat stat;
@@ -12,7 +13,6 @@ public class Sword : Weapon
     private void Start()
     {
         InitCollider();
-        GetPlayerObject();
 
         stat = go_player.GetComponent<Stat>();
         attackAbilityCommand = go_player.GetComponent<AttackAbilityCommand>();
@@ -24,12 +24,6 @@ public class Sword : Weapon
         _collider.isTrigger = true;
         _collider.enabled = false;
         _collider.size = new Vector3(0.5f, _collider.size.y * 1.2f, 0.5f);
-    }
-    
-    private void GetPlayerObject()
-    {
-        // parent * 11
-        go_player = this.gameObject.transform.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.parent.gameObject;
     }
 
     public void ActivateWeapon()

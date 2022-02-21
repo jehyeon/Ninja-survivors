@@ -12,9 +12,16 @@ public class PlayerController : MonoBehaviour
     private CharacterController cc;
     private Animator animator;
     private GameObject playerCamera;
-    private bool isJump;
-    private float jumpingTime = 0f;
     
+    // for soft move
+    private float h;
+    private float v;
+    private float softMoveOffset = 3f;   // 고정
+    public float realSpeed;
+    public float realJumpPower;
+
+    private float previousY;
+    public bool isGround;
     // 스킬 커맨드
     private SkillCommandManager skillCommandManager = null;
 
@@ -43,52 +50,110 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        if (jumpingTime > 0.2f)
+        // 바닥 체크
+        bool isGround = IsGrounded();
+
+        // temp
+        stat.Speed = realSpeed;
+        stat.JumpPower = realJumpPower;
+
+        // Movement
+        // 키 입력 및 시간에 따라 moveDir를 위한 h, v 조정
+        if (Input.GetAxisRaw("Horizontal") == 1)
         {
-            animator.SetBool("isRand", false);
+            h += Time.deltaTime * softMoveOffset;
+            if (h > 1)
+            {
+                h = 1;
+            }
+        }
+        if (Input.GetAxisRaw("Horizontal") == -1)
+        {
+            h -= Time.deltaTime * softMoveOffset;
+            if (h < -1)
+            {
+                h = -1;
+            }
+        }
+        if (Input.GetAxisRaw("Horizontal") == 0)
+        {
+            if (h > 0)
+            {
+                h -= Time.deltaTime * softMoveOffset;
+                if (h < 0)
+                {
+                    h = 0;
+                }
+            }
+            if (h < 0)
+            {
+                h += Time.deltaTime * softMoveOffset;
+                if (h > 0)
+                {
+                    h = 0;
+                }
+            }
         }
 
-        if (IsGrounded())
+        if (Input.GetAxisRaw("Vertical") == 1)
         {
-            if (isJump && jumpingTime > 0.1f)
+            v += Time.deltaTime * softMoveOffset;
+            if (v > 1)
             {
-                // 점프 상태에서 ground를 밟게 되면
-                animator.SetBool("isJump", false);
-                animator.SetBool("isRand", true);
-                jumpingTime = 0f;
-                isJump = false;
+                v = 1;
             }
-
-            float h = Input.GetAxis("Horizontal"); 
-            float v = Input.GetAxis("Vertical");
-
-            // 평면 이동
-            moveDir = new Vector3(h, 0, v);
-            moveDir = transform.TransformDirection(moveDir);
-            if (v == 1 && h == 0)
+        }
+        if (Input.GetAxisRaw("Vertical") == -1)
+        {
+            v -= Time.deltaTime * softMoveOffset;
+            if (v < -1)
             {
-                // sprint
-                moveDir *= stat.Speed * 1.5f;
+                v = -1;
             }
-            else
+        }
+        if (Input.GetAxisRaw("Vertical") == 0)
+        {
+            if (v > 0)
             {
-                moveDir *= stat.Speed;
+                v -= Time.deltaTime * softMoveOffset;
+                if (v < 0)
+                {
+                    v = 0;
+                }
             }
-
-            // Jump
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (v < 0)
             {
-                moveDir.y = stat.JumpPower;
+                v += Time.deltaTime * softMoveOffset;
+                if (v > 0)
+                {
+                    v = 0;
+                }
             }
+        }
 
-            // 이동기
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                skillCommandManager.InvokeExecute("Dash");
-            }
+        moveDir = new Vector3(h, 0, v);
+        moveDir = transform.TransformDirection(moveDir);    // 로컬 좌표로 변환
 
-            // Animator
-            if (h != 0 || v != 0)
+        // Speed 적용, 정면 달리기는 가속
+        if (v == 1 && h == 0)
+        {
+            // sprint
+            moveDir *= stat.Speed * 1.3f;
+        }
+        else
+        {
+            moveDir *= stat.Speed;
+        }
+
+        // 애니메이션 제어
+        if (isGround)
+        {
+            previousY = 0f;
+            // 바닥에서만 move animation 재생
+            animator.SetFloat("moveX", h);
+            animator.SetFloat("moveY", v);
+            animator.SetFloat("moveSpeed", stat.Speed * 0.15f);
+            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             {
                 animator.SetBool("isMove", true);
             }
@@ -96,19 +161,35 @@ public class PlayerController : MonoBehaviour
             {
                 animator.SetBool("isMove", false);
             }
-            animator.SetFloat("MoveX", h);
-            animator.SetFloat("MoveY", v);
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                previousY += stat.JumpPower;
+                animator.SetTrigger("isJump");
+                Invoke("Jumping", 0.03f);   // 0.03초 이후 지면검사를 다시 함
+            }
+        }
+
+        // 이동기
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            skillCommandManager.InvokeExecute("Dash");
+        }
+
+        moveDir.y = previousY;
+        moveDir.y -= gravity * Time.deltaTime;      // 중력 적용
+        previousY = moveDir.y;
+
+        cc.Move(moveDir * Time.deltaTime);
+
+        if (isGround)
+        {
+            animator.SetBool("isGround", true);
         }
         else
         {
-            jumpingTime += Time.deltaTime;
-            isJump = true;
-            animator.SetBool("isJump", true);
+            animator.SetBool("isGround", false);
         }
-        
-        moveDir.y -= gravity * Time.deltaTime;
-
-        cc.Move(moveDir * Time.deltaTime);
     }
 
     private void Rotate()
@@ -117,6 +198,8 @@ public class PlayerController : MonoBehaviour
         float mouseX = Input.GetAxisRaw("Mouse X") * lookSensitivity;
         float playerRotationY = this.transform.eulerAngles.y + mouseX;
         this.transform.eulerAngles = new Vector3(0f, playerRotationY, 0f);
+
+        // !!! 상체 각도 조절
 
         // Camera 상하 시야 전환
         float mouseY = -1 * Input.GetAxisRaw("Mouse Y") * lookSensitivity;
@@ -129,16 +212,35 @@ public class PlayerController : MonoBehaviour
         playerCamera.GetComponent<PlayerCamera>().Rotate(cameraRotationX);
     }
 
+    private void Jumping()
+    {
+        isGround = false;
+    }
+
     private bool IsGrounded()
     {
-        RaycastHit hit;
-        Physics.Raycast(this.transform.position, Vector3.down, out hit, .15f);
-        // Debug.DrawRay(this.transform.position, Vector3.down * 0.15f);
-        if (hit.transform == null)
+        if (isGround)
         {
-            return false;
+            // 착지 상태면 더이상 체크 안함
+            return true;
         }
-        return hit.transform.CompareTag("Ground");
+
+        if (cc.isGrounded)
+        {
+            // 캐릭터 컨트롤러에서 확인되면 ray 체크 안함
+            return true;
+        }
+
+        // 캐릭터 컨트롤 isGrounded false인 경우 check ray
+        RaycastHit hit;
+        // Debug.DrawRay(this.transform.position, Vector3.down * 0.15f, Color.red);
+        if (Physics.Raycast(this.transform.position, Vector3.down, out hit, 0.15f, 1 << 6))
+        {
+            // 바닥이 ground인 경우
+            return true;   
+        }
+
+        return false;
     }
 
     private void Attack()
@@ -146,8 +248,9 @@ public class PlayerController : MonoBehaviour
         // 공격 애니메이션만 처리
         if (Input.GetMouseButtonDown(0))
         {
+            animator.SetInteger("attackType", Random.Range(0, 3));
             animator.SetTrigger("isAttack");
-            animator.SetInteger("AttackType", Random.Range(0, 3));
         }
     }
+
 }

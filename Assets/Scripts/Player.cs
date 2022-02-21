@@ -34,7 +34,7 @@ public class Player : Character
         _stat.MaxHp = 100;
         _stat.JumpPower = 35;
         _stat.Damage = 5;
-        _stat.Speed = 6;
+        _stat.Speed = 2;
         _stat.AttackSpeed = 1;
         UpdataAttackSpeed();
 
