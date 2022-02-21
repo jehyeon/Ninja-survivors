@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private Stat stat;
     private CharacterController cc;
     private Animator animator;
-    private GameObject playerCamera;
+    private GameObject cameraRotate;
     private WeaponSystem weaponSystem;
     
     // for soft move
@@ -30,13 +30,18 @@ public class PlayerController : MonoBehaviour
     // 스킬 커맨드
     private SkillCommandManager skillCommandManager = null;
 
-    void Start()
+    private Transform playerChestTransform;
+
+    private void Start()
     {
         cc = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        playerCamera = GameObject.Find("Main Camera");
+        cameraRotate = GameObject.Find("Camera rotate");
         stat = GetComponent<Stat>();
         weaponSystem = GetComponent<WeaponSystem>();
+
+        // 상체 본
+        playerChestTransform = animator.GetBoneTransform(HumanBodyBones.Spine);
 
         // 스킬 커맨드 생성
         skillCommandManager = new SkillCommandManager();
@@ -46,10 +51,14 @@ public class PlayerController : MonoBehaviour
         skillCommandManager.SetSkillCommand("Dash", dashSkillCommand);
     }
 
-    void Update()
+    private void Update()
     {
         Move();
         Attack();
+    }
+
+    private void LateUpdate()
+    {
         Rotate();
     }
 
@@ -204,17 +213,22 @@ public class PlayerController : MonoBehaviour
         float playerRotationY = this.transform.eulerAngles.y + mouseX;
         this.transform.eulerAngles = new Vector3(0f, playerRotationY, 0f);
 
-        // !!! 상체 각도 조절
 
         // Camera 상하 시야 전환
         float mouseY = -1 * Input.GetAxisRaw("Mouse Y") * lookSensitivity;
-        float rotate = playerCamera.transform.eulerAngles.x + mouseY;
+        float rotate = cameraRotate.transform.eulerAngles.x + mouseY;
         if (rotate > 180)
         {
             rotate = (rotate - 360);
         }
-        float cameraRotationX = Mathf.Clamp(rotate, -50f, 30f);
-        playerCamera.GetComponent<PlayerCamera>().Rotate(cameraRotationX);
+        float cameraRotationX = Mathf.Clamp(rotate, -20, 90);
+        cameraRotate.GetComponent<PlayerCamera>().Rotate(cameraRotationX);
+        
+        playerChestTransform.rotation = Quaternion.Euler(
+            playerChestTransform.rotation.eulerAngles.x, 
+            playerChestTransform.rotation.eulerAngles.y, 
+            cameraRotationX * -1f - 60f
+        );
     }
 
     private void Jumping()
