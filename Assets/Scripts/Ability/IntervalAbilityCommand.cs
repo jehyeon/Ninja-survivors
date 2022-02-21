@@ -5,11 +5,13 @@ using UnityEngine;
 public class IntervalAbilityCommand : MonoBehaviour
 {
     private Player player;
+    private WeaponSystem weaponSystem;
     private List<IntervalAbility> abilities;
 
     private void Awake()
     {
         player = GetComponent<Player>();
+        weaponSystem = GetComponent<WeaponSystem>();
         abilities = new List<IntervalAbility>();
     }
 
@@ -46,7 +48,7 @@ public class IntervalAbilityCommand : MonoBehaviour
                 return judgement;
             case 2:
                 ReinforceWeapon reinforceWeapon = gameObject.AddComponent<ReinforceWeapon>();
-                reinforceWeapon.GetWeapon(player.sword);
+                reinforceWeapon.GetWeapon(weaponSystem.Weapon);
                 return reinforceWeapon;
         }
 

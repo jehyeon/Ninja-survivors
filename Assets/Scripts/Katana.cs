@@ -2,55 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sword : Weapon
+public class Katana : Weapon
 {
     [SerializeField]
-    private GameObject go_player;
-    private AttackAbilityCommand attackAbilityCommand;
-    private Stat stat;
-    private BoxCollider _collider;
+    private GameObject attackRange;
+    private BoxCollider attackCollider;
 
+    public float duration = .5f;
     private void Start()
     {
-        InitCollider();
-
         stat = go_player.GetComponent<Stat>();
         attackAbilityCommand = go_player.GetComponent<AttackAbilityCommand>();
+        attackCollider = attackRange.GetComponent<BoxCollider>();
+        
+        attackCollider.enabled = false;
     }
 
     private void InitCollider()
     {
-        _collider = gameObject.AddComponent<BoxCollider>();
-        _collider.isTrigger = true;
-        _collider.enabled = false;
-        _collider.size = new Vector3(0.5f, _collider.size.y * 1.2f, 0.5f);
-    }
-
-    public void ActivateWeapon()
-    {
-        // collider 활성화
-        _collider.enabled = true;
-    }
-
-    public void DeActivateWeapon()
-    {
-        // collider 비활성화
-        _collider.enabled = false;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            // 더블공격
-            if (Random.value < stat.DoublePercent)
-            {
-                Attack(other);
-            }
-            Attack(other);
-        }
-
-        return;
     }
 
     private void Attack(Collider other)
@@ -75,13 +44,37 @@ public class Sword : Weapon
         }
     }
 
-    public void UpgradeAttackRange(int level = 1)
+    public override void Attack(int attackType)
+    {
+        StartCoroutine(AttackColliderCoroutine(attackType, duration));
+    }
+
+    public override void AttackSuccess(Collider collider)
+    {
+        // 더블공격
+        if (Random.value < stat.DoublePercent)
+        {
+            Attack(collider);
+        }
+        Attack(collider);
+    }
+
+    IEnumerator AttackColliderCoroutine(int attackType, float duration)
+    {
+        yield return new WaitForSeconds(.3f);   // attack start delay
+        attackCollider.enabled = true;
+        yield return new WaitForSeconds(duration);
+        attackCollider.enabled = false;
+        yield break;
+    }
+    
+    public override void UpgradeAttackRange(int level = 1)
     {
         // Level당 20% 씩 범위 증가
         for (int i = 0; i < level; i++)
         {
-            _collider.center += new Vector3(0, 0.1f, 0);
-            _collider.size += new Vector3(0, 0.2f, 0);
+            attackCollider.center += new Vector3(0, 0.1f, 0);
+            attackCollider.size += new Vector3(0, 0.2f, 0);
         }
     }
 }

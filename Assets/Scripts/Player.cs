@@ -6,10 +6,6 @@ public class Player : Character
 {
     private GameManager gameManager;
 
-    [SerializeField]
-    public GameObject go_weapon;
-    public Sword sword;
-
     private Exp _exp;
 
     // Cool time
@@ -22,7 +18,6 @@ public class Player : Character
         base.Awake();
 
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-        sword = go_weapon.GetComponent<Sword>();
     }
 
     private void Start()
@@ -36,7 +31,6 @@ public class Player : Character
         _stat.Damage = 5;
         _stat.Speed = 2;
         _stat.AttackSpeed = 1;
-        UpdataAttackSpeed();
 
         gameManager.UpdateHpBar();
     }
@@ -51,9 +45,6 @@ public class Player : Character
 
         // 자동 회복
         RecoverHp();
-
-        // 공격 시 sword collider 활성화
-        ActivateWeapon();
 
         Die();
     }
@@ -99,32 +90,6 @@ public class Player : Character
         gameManager.UpdateHpBar();
     }
 
-    // 공격 중인지 확인
-    private bool IsAttacking()
-    {
-        if (animator.GetCurrentAnimatorStateInfo(1).IsName("Attack1") ||
-            animator.GetCurrentAnimatorStateInfo(1).IsName("Attack2") ||
-            animator.GetCurrentAnimatorStateInfo(1).IsName("Attack3") )
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    // 무기 활성화, 비활성화
-    private void ActivateWeapon()
-    {
-        if (IsAttacking())
-        {
-            sword.ActivateWeapon();
-        }
-        else
-        {
-            sword.DeActivateWeapon();
-        }
-    }
-
     private void Die()
     {
         if (_stat.Hp <= 0)
@@ -147,11 +112,11 @@ public class Player : Character
 
     public void UpdataAttackSpeed()
     {
-        animator.SetFloat("AttackSpeed", _stat.AttackSpeed);
+        // animator.SetFloat("AttackSpeed", _stat.AttackSpeed);
     }
 
     public void UpdateAttackRange()
     {
-        sword.UpgradeAttackRange(_stat.AttackRange);
+        // sword.UpgradeAttackRange(_stat.AttackRange);
     }
 }

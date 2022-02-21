@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 플레이어 동작, 애니메이션 관련
 public class PlayerController : MonoBehaviour
 {
     public float gravity;
@@ -12,16 +13,20 @@ public class PlayerController : MonoBehaviour
     private CharacterController cc;
     private Animator animator;
     private GameObject playerCamera;
+    private WeaponSystem weaponSystem;
     
     // for soft move
     private float h;
     private float v;
+    // for jump
+    private float previousY;
+    private bool isGround;
     private float softMoveOffset = 3f;   // 고정
+
+    // for test
     public float realSpeed;
     public float realJumpPower;
 
-    private float previousY;
-    public bool isGround;
     // 스킬 커맨드
     private SkillCommandManager skillCommandManager = null;
 
@@ -31,6 +36,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerCamera = GameObject.Find("Main Camera");
         stat = GetComponent<Stat>();
+        weaponSystem = GetComponent<WeaponSystem>();
 
         // 스킬 커맨드 생성
         skillCommandManager = new SkillCommandManager();
@@ -40,7 +46,6 @@ public class PlayerController : MonoBehaviour
         skillCommandManager.SetSkillCommand("Dash", dashSkillCommand);
     }
 
-    // Update is called once per frame
     void Update()
     {
         Move();
@@ -53,7 +58,7 @@ public class PlayerController : MonoBehaviour
         // 바닥 체크
         bool isGround = IsGrounded();
 
-        // temp
+        // for test
         stat.Speed = realSpeed;
         stat.JumpPower = realJumpPower;
 
@@ -248,9 +253,12 @@ public class PlayerController : MonoBehaviour
         // 공격 애니메이션만 처리
         if (Input.GetMouseButtonDown(0))
         {
-            animator.SetInteger("attackType", Random.Range(0, 3));
+            // Katana (temp)
+            int attackType = Random.Range(0, 2);
+            animator.SetInteger("attackType", attackType);
             animator.SetTrigger("isAttack");
+
+            weaponSystem.Attack(attackType);
         }
     }
-
 }

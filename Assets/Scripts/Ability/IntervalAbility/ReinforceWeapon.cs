@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ReinforceWeapon : IntervalAbility
 {
-    private Sword weapon;
+    private Weapon weapon;
 
     private void Awake()
     {
@@ -19,7 +19,7 @@ public class ReinforceWeapon : IntervalAbility
         Debug.Log(weapon);
     }
 
-    public void GetWeapon(Sword _weapon)
+    public void GetWeapon(Weapon _weapon)
     {
         weapon = _weapon;
     }
