@@ -18,6 +18,7 @@ public abstract class Weapon : Item
     protected AttackAbilityCommand attackAbilityCommand;
     
     public abstract void Attack(int attackType);
+    public abstract void AttackOnAir(int attackType);
     public abstract void UpgradeAttackRange(int level = 1);
     public abstract void AttackSuccess(Collider collider);
 }

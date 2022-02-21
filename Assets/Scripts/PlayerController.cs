@@ -272,7 +272,14 @@ public class PlayerController : MonoBehaviour
             animator.SetInteger("attackType", attackType);
             animator.SetTrigger("isAttack");
 
-            weaponSystem.Attack(attackType);
+            if (IsGrounded())
+            {
+                weaponSystem.Attack(attackType);
+            }
+            else
+            {
+                weaponSystem.AttackOnAir(attackType);
+            }
         }
     }
 }

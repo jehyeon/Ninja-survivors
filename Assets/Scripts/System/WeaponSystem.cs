@@ -44,4 +44,9 @@ public class WeaponSystem : MonoBehaviour
     {
         weapon.Attack(attackType);
     }
+
+    public void AttackOnAir(int attackType)
+    {
+        weapon.AttackOnAir(attackType);
+    }
 }

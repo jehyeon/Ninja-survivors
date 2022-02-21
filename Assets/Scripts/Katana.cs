@@ -46,6 +46,21 @@ public class Katana : Weapon
 
     public override void Attack(int attackType)
     {
+        attackCollider.transform.rotation = Quaternion.Euler(
+            attackCollider.transform.rotation.eulerAngles.x, 
+            attackCollider.transform.rotation.eulerAngles.y, 
+            0
+        );
+        StartCoroutine(AttackColliderCoroutine(attackType, duration));
+    }
+
+    public override void AttackOnAir(int attackType)
+    {
+        attackCollider.transform.rotation = Quaternion.Euler(
+            attackCollider.transform.rotation.eulerAngles.x, 
+            attackCollider.transform.rotation.eulerAngles.y, 
+            90
+        );
         StartCoroutine(AttackColliderCoroutine(attackType, duration));
     }
 
