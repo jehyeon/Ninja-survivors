@@ -23,7 +23,7 @@ public class Player : Character
     private void Start()
     {
         _exp = new Exp();
-        _stat.Hp = 1;
+        _stat.Hp = 100;
         _stat.MaxHp = 100;
         _stat.JumpPower = 15;
         _stat.Damage = 5;
