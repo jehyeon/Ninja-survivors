@@ -24,6 +24,10 @@ public class SpawnSystem : MonoBehaviour
     private BlackNightFactory blackNightFactory;
     [SerializeField]
     private SpecterFactory specterFactory;
+    [SerializeField]
+    private LizardFactory lizardFactory;
+    [SerializeField]
+    private WolfFactory wolfFactory;
 
     private float time = 0f;
     public int enemyCount = 0;
@@ -41,11 +45,12 @@ public class SpawnSystem : MonoBehaviour
     private void Start()
     {
         // 스폰 테이블
-        spawnTable[0] = new string[] {"Crab"};
-        spawnTable[1] = new string[] {"Rat"};
-        spawnTable[2] = new string[] {"Rat", "Crab"};
-        spawnTable[3] = new string[] {"Specter"};
-        spawnTable[4] = new string[] {"Rat", "Crab", "Specter"};
+        spawnTable[0] = new string[] {"Wolf", "Lizard"};
+        // spawnTable[0] = new string[] {"Crab"};
+        // spawnTable[1] = new string[] {"Rat"};
+        // spawnTable[2] = new string[] {"Rat", "Crab"};
+        // spawnTable[3] = new string[] {"Specter"};
+        // spawnTable[4] = new string[] {"Rat", "Crab", "Specter"};
         // 게임 시작 5초 이후 spawnCoolTime마다 스폰
         InvokeRepeating("Spawn", 2f, spawnCoolTime);
         InvokeRepeating("BigSpawn", 600f, 600f);
@@ -100,6 +105,15 @@ public class SpawnSystem : MonoBehaviour
             case "BlackNight":
                 enemy = blackNightFactory.CreateEnemy("default");
                 break;
+            case "Lizard":
+                enemy = lizardFactory.CreateEnemy("default");
+                break;
+            case "Wolf":
+                enemy = wolfFactory.CreateEnemy("default");
+                break;
+            // Demon (원거리, 공중)
+            // Beholder (원거리, 공중)
+            // Chest (근거리, 나중에)
         }
         
         SetRandomPosition(enemy);

@@ -45,4 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolingObjectPref: {fileID: 8825015639708117879, guid: cc90df2816fa24343b802df62c4cdb97, type: 3}
   _count: 50
-  _additionalCount: 10
+  _additionalCount: 5

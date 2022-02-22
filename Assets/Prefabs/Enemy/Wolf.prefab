@@ -45,6 +45,8 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 3
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -56,6 +58,7 @@ SkinnedMeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -164,9 +167,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2372304547697194531}
   - component: {fileID: 2372304547690190935}
-  m_Layer: 0
+  - component: {fileID: -7420360861237173003}
+  - component: {fileID: 3347515189719439345}
+  - component: {fileID: -1805731618971452063}
+  m_Layer: 3
   m_Name: Wolf
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,7 +203,7 @@ Animator:
   m_GameObject: {fileID: 2372304547697617411}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 94ce5bba86f4a7c499ddcd63c35f4d85, type: 3}
-  m_Controller: {fileID: 9100000, guid: dedb1f6215e165f489e880519efdccf0, type: 2}
+  m_Controller: {fileID: 9100000, guid: 38c3c1779e293c54f8e772883154a72c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -206,6 +212,50 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!54 &-7420360861237173003
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2372304547697617411}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
+--- !u!136 &3347515189719439345
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2372304547697617411}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.1
+  m_Height: 2.05
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &-1805731618971452063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2372304547697617411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd091c46b7da1c448717ea66217a830, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCollider: {fileID: 0}
+  go_enemyWeapon: {fileID: 2372304547697617809}
 --- !u!1 &2372304547697617413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1266,6 +1316,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2372304547697194929}
+  - component: {fileID: 982967104}
   m_Layer: 0
   m_Name: Blade02_R
   m_TagString: Untagged
@@ -1280,13 +1331,26 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2372304547697617809}
-  m_LocalRotation: {x: -0.49900934, y: 0.25289553, z: 0.7393477, w: 0.37469786}
-  m_LocalPosition: {x: -0.6573444, y: 4.973799e-16, z: -9.947598e-16}
+  m_LocalRotation: {x: -0.37996113, y: 0.46758026, z: 0.53496224, w: 0.5922953}
+  m_LocalPosition: {x: -0.306, y: 0.045, z: 0.037}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2372304547697194933}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -71.874, y: 28.272, z: 63.485}
+--- !u!65 &982967104
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2372304547697617809}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7, y: 1.47, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2372304547697617811
 GameObject:
   m_ObjectHideFlags: 0

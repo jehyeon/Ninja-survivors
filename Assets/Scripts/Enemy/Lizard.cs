@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lizzard : MeleeEnemy
+public class Lizard : MeleeEnemy
 {
     private void Start()
     {

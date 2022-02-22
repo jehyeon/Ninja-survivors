@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7218674479078410886}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.8038464, y: -9.846789, z: -40.78003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -45,4 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolingObjectPref: {fileID: 6652740088078416599, guid: 7cccb5b6ebe389948ab4aa34000d2eb3, type: 3}
   _count: 50
-  _additionalCount: 10
+  _additionalCount: 5
