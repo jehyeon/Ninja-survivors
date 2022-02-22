@@ -33,7 +33,8 @@ public class Player : Character
         _stat.JumpPower = 15;
         _stat.Damage = 5;
         _stat.Speed = 2;
-        _stat.AttackSpeed = 1;
+        _stat.AttackSpeed = 1f;
+        UpdataAttackSpeed();
 
         gameManager.UpdateHpBar();
         
@@ -118,7 +119,9 @@ public class Player : Character
 
     public void UpdataAttackSpeed()
     {
-        // animator.SetFloat("AttackSpeed", _stat.AttackSpeed);
+        Debug.LogFormat("Attack Speed Up {0}", _stat.AttackSpeed);
+        weaponSystem.Weapon.UpdateAttackCooltime();
+        animator.SetFloat("attackSpeed", _stat.AttackSpeed);
     }
 
     public void UpdateAttackRange()

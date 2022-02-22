@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     private float previousY;
     private bool isGround;
     private float softMoveOffset = 3f;   // 고정
+    
+    private bool canAttack;     // 공격 쿨타임
 
     // for test
     public float realSpeed;
@@ -52,6 +54,8 @@ public class PlayerController : MonoBehaviour
         Dash dashSkillCommand = gameObject.AddComponent<Dash>();
         dashSkillCommand.SetPlayer(this.gameObject, cameraRotate);
         skillCommandManager.SetSkillCommand("Dash", dashSkillCommand);
+
+        canAttack = true;
     }
 
     private void Update()
@@ -271,21 +275,32 @@ public class PlayerController : MonoBehaviour
     private void Attack()
     {
         // 공격 애니메이션만 처리
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
-            // Katana (temp)
-            int attackType = Random.Range(0, 2);
-            animator.SetInteger("attackType", attackType);
-            animator.SetTrigger("isAttack");
+            if (canAttack)
+            {
+                canAttack = false;
+                // Katana (temp)
+                int attackType = Random.Range(0, 2);
+                animator.SetInteger("attackType", attackType);
+                animator.SetTrigger("isAttack");
 
-            if (IsGrounded())
-            {
-                weaponSystem.Attack(attackType);
-            }
-            else
-            {
-                weaponSystem.AttackOnAir(attackType);
+                if (IsGrounded())
+                {
+                    weaponSystem.Attack(attackType);
+                }
+                else
+                {
+                    weaponSystem.AttackOnAir(attackType);
+                }
+                StartCoroutine("AttackCooltime");
             }
         }
+    }
+
+    IEnumerator AttackCooltime()
+    {
+        yield return new WaitForSeconds(weaponSystem.Weapon.AttackCoolTime);
+        canAttack = true;
     }
 }

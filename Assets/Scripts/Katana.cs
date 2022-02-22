@@ -10,7 +10,6 @@ public class Katana : Weapon
 
     public GameObject AttackRange { get { return attackRange; } }
 
-    public float duration = .5f;
     private void Start()
     {
         stat = go_player.GetComponent<Stat>();
@@ -18,6 +17,7 @@ public class Katana : Weapon
         attackCollider = attackRange.GetComponent<BoxCollider>();
         
         attackCollider.enabled = false;
+        UpdateAttackCooltime();
     }
 
     private void Attack(Collider other)
@@ -50,7 +50,7 @@ public class Katana : Weapon
             attackCollider.transform.rotation.eulerAngles.y, 
             0
         );
-        StartCoroutine(AttackColliderCoroutine(attackType, duration));
+        StartCoroutine(AttackColliderCoroutine(attackType));
     }
 
     public override void AttackOnAir(int attackType)
@@ -61,7 +61,7 @@ public class Katana : Weapon
             attackCollider.transform.rotation.eulerAngles.y, 
             90
         );
-        StartCoroutine(AttackColliderCoroutine(attackType, duration));
+        StartCoroutine(AttackColliderCoroutine(attackType));
     }
 
     public override void AttackSuccess(Collider collider)
@@ -76,11 +76,11 @@ public class Katana : Weapon
         Attack(collider);
     }
 
-    IEnumerator AttackColliderCoroutine(int attackType, float duration)
+    IEnumerator AttackColliderCoroutine(int attackType)
     {
-        yield return new WaitForSeconds(.3f);   // attack start delay
+        yield return new WaitForSeconds(attackCooltime / 3f);   // attack start delay
         attackCollider.enabled = true;
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(attackCooltime / 3f);
         attackCollider.enabled = false;
         yield break;
     }
@@ -103,5 +103,11 @@ public class Katana : Weapon
     public void DeActivateCollider()
     {
         attackCollider.enabled = false;
+    }
+
+    public override void UpdateAttackCooltime()
+    {
+        // katana default attack animation speed is 1.133s
+        attackCooltime = 1.133f / stat.AttackSpeed;
     }
 }
