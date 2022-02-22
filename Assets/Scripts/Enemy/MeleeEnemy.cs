@@ -16,21 +16,16 @@ public class MeleeEnemy : Enemy
     }
 
     // 무기 collider 활성화
-    protected void ActivateWeapon()
+    protected override IEnumerator Attack()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
-        {
-            enemyWeaponCollider.enabled = true;
-            isMove = false;
-        }
-        else
-        {
-            enemyWeaponCollider.enabled = false;
-
-            if (!isDie)
-            {
-                isMove = true;
-            }
-        }
+        yield return StartCoroutine(base.Attack());
+        isAttack = true;
+        // enemy 마다 개별적인 딜레이 지정이 필요하면 하위 클래스에서 오버라이드
+        yield return new WaitForSeconds(attackCooltime * 0.25f);        // attack start delay
+        enemyWeaponCollider.enabled = true;
+        yield return new WaitForSeconds(attackCooltime * 0.5f);
+        enemyWeaponCollider.enabled = false;
+        yield return new WaitForSeconds(attackCooltime * 0.25f);
+        isAttack = false;   // isAttack true일 때에는 isMove, isRotate가 false로 고정
     }
 }

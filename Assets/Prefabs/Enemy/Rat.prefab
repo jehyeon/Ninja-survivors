@@ -246,7 +246,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.49, y: 0.86, z: 1.68}
+  m_Size: {x: 0.7, y: 0.86, z: 1.68}
   m_Center: {x: 0.0002490751, y: -0.011439211, z: 0.69}
 --- !u!1 &6652740088078416525
 GameObject:
@@ -1058,7 +1058,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6652740088078416599}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6243185, y: 6.03, z: 0.64591694}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6652740088078640815}
@@ -1127,6 +1127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a35469a2d5b97f4fb4d5befde305c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyCollider: {fileID: 0}
   go_enemyWeapon: {fileID: 6652740088078416523}
 --- !u!1 &6652740088078416601
 GameObject:

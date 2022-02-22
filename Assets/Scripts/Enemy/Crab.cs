@@ -10,19 +10,11 @@ public class Crab : MeleeEnemy
         canFly = false;
         
         attackRange = 3f;
-
+        attackCooltime = 1.2f;
         _stat.Hp = 5;
         _stat.Speed = 3;
         _stat.Damage = 5;
 
         exp = 10;
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-
-        // isAttack Trigger 시 Weapon collider 활성화
-        ActivateWeapon();
     }
 }

@@ -9,19 +9,11 @@ public class Wolf : MeleeEnemy
         canFly = false;
         
         attackRange = 2f;
-
+        attackCooltime = 0.667f;
         _stat.Hp = 30;
         _stat.Speed = 5;
         _stat.Damage = 5;
 
         exp = 50;
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-
-        // isAttack Trigger 시 Weapon collider 활성화
-        ActivateWeapon();
     }
 }

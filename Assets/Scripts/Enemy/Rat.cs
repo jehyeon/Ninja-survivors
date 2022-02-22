@@ -10,19 +10,11 @@ public class Rat : MeleeEnemy
         canFly = false;
         
         attackRange = 2f;
-
+        attackCooltime = 0.767f;
         _stat.Hp = 5;
         _stat.Speed = 6;
         _stat.Damage = 3;
 
         exp = 10;
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-
-        // isAttack Trigger 시 Weapon collider 활성화
-        ActivateWeapon();
     }
 }
