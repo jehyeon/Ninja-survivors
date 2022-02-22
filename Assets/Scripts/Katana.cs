@@ -8,6 +8,8 @@ public class Katana : Weapon
     private GameObject attackRange;
     private BoxCollider attackCollider;
 
+    public GameObject AttackRange { get { return attackRange; } }
+
     public float duration = .5f;
     private void Start()
     {
@@ -16,10 +18,6 @@ public class Katana : Weapon
         attackCollider = attackRange.GetComponent<BoxCollider>();
         
         attackCollider.enabled = false;
-    }
-
-    private void InitCollider()
-    {
     }
 
     private void Attack(Collider other)
@@ -91,5 +89,15 @@ public class Katana : Weapon
             attackCollider.center += new Vector3(0, 0.1f, 0);
             attackCollider.size += new Vector3(0, 0.2f, 0);
         }
+    }
+
+    public void ActivateCollider()
+    {
+        attackCollider.enabled = true;
+    }
+
+    public void DeActivateCollider()
+    {
+        attackCollider.enabled = false;
     }
 }

@@ -27,7 +27,7 @@ public class Player : Character
         _exp = new Exp();
         _stat.Hp = 100;
         _stat.MaxHp = 100;
-        _stat.JumpPower = 35;
+        _stat.JumpPower = 15;
         _stat.Damage = 5;
         _stat.Speed = 2;
         _stat.AttackSpeed = 1;

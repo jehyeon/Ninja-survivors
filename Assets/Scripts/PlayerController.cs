@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
         skillCommandManager = new SkillCommandManager();
         // Dash dashSkillCommand = new Dash(this.transform);
         Dash dashSkillCommand = gameObject.AddComponent<Dash>();
-        dashSkillCommand.SetTransform(this.transform);
+        dashSkillCommand.SetPlayer(this.gameObject, cameraRotate);
         skillCommandManager.SetSkillCommand("Dash", dashSkillCommand);
     }
 

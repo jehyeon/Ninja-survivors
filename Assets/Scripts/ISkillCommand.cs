@@ -11,12 +11,15 @@ public class Dash : MonoBehaviour, ISkillCommand
 {
     private bool canExecute;
     private float cooltime;
-    private Transform playerTransform;
+    private GameObject go_player;
+    private GameObject cameraRotate;
+    private Katana katana;
+    private Animator animator;
     
     private void Awake()
     {
         canExecute = true;
-        cooltime = 5f;
+        cooltime = 0f;
     }
 
     public void Execute()
@@ -24,8 +27,14 @@ public class Dash : MonoBehaviour, ISkillCommand
         if (canExecute)
         {
             canExecute = false;
-            InvokeRepeating("Move", 0f, 0.000016f);
+            // 대쉬 애니메이션
+            animator.SetTrigger("isDash");
+            // 이동
+            katana.ActivateCollider();
+            InvokeRepeating("Move", 0f, 0.0016f);
             Invoke("CancelMove", .15f);
+
+            // 공격 활성화
             StartCoroutine("StartCoolTime");
         }
     }
@@ -36,18 +45,27 @@ public class Dash : MonoBehaviour, ISkillCommand
         canExecute = true;
     }
 
-    public void SetTransform(Transform transform)
+    public void SetPlayer(GameObject player, GameObject _cameraRotate)
     {
-        playerTransform = transform;
+        go_player = player;
+        cameraRotate = _cameraRotate;
+        katana = (Katana)player.GetComponent<WeaponSystem>().Weapon;
+        animator = player.GetComponent<Animator>();
     }
 
     public void Move()
     {
-        playerTransform.Translate(Vector3.forward * 3);
+        go_player.transform.Translate(Vector3.forward * 3 + new Vector3(0, cameraRotate.transform.forward.y, 0));
     }
 
     public void CancelMove()
     {
         CancelInvoke("Move");
+        Invoke("DelayDeActivateCollider", 0.3f);
+    }
+
+    private void DelayDeActivateCollider()
+    {
+        katana.DeActivateCollider();
     }
 }
