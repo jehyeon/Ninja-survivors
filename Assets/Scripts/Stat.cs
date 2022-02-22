@@ -49,7 +49,7 @@ public class Stat : MonoBehaviour
     {
         if (decrease < 0)
         {
-            Debug.Log("damage < 0");
+            Debug.Log("damage < 0");    // bug
         }
 
         _hp -= decrease;
@@ -60,14 +60,21 @@ public class Stat : MonoBehaviour
         }
     }
 
-    public void Heal(int amount)
+    public bool Heal(int amount)
     {
+        if (_hp == _maxHp)
+        {
+            return false;
+        }
+
         _hp += amount;
 
         if (_hp > _maxHp)
         {
             _hp = _maxHp;
         }
+
+        return true;
     }
 
     public void HpReset()

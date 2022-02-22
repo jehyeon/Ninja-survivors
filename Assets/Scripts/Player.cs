@@ -10,9 +10,6 @@ public class Player : Character
 
     private Exp _exp;
 
-    // Cool time
-    private float hpRecoveryCooltime;
-
     public Exp exp { get { return _exp; } }
 
     protected override void Awake()
@@ -25,39 +22,34 @@ public class Player : Character
 
     private void Start()
     {
-        // Init
-        hpRecoveryCooltime = 0f;
         _exp = new Exp();
-        _stat.Hp = 100;
+        _stat.Hp = 1;
         _stat.MaxHp = 100;
         _stat.JumpPower = 15;
         _stat.Damage = 5;
         _stat.Speed = 2;
         _stat.AttackSpeed = 1f;
+        _stat.HpRecovery = 1;
         UpdataAttackSpeed();
 
         gameManager.UpdateHpBar();
         
         // 무기 데이터 가져오기
         weapon = weaponSystem.Weapon;
+
+        InvokeRepeating("RecoverHp", 1f, 1f);   // 1초마다 체력회복
     }
 
     private void Update()
     {
+        // for test
         if (Input.GetKeyDown(KeyCode.L))
         {
-            // temp
             gameManager.LevelUp();
         }
-
-        // 자동 회복
-        RecoverHp();
-
-        Die();
     }
 
     // About Stat
-
     public void GetDamage(int damage)
     {
         if (Random.value < _stat.EvasionPercent)
@@ -77,24 +69,23 @@ public class Player : Character
             _stat.DecreaseHp(Mathf.FloorToInt((float)damage * (float)(100 - _stat.Defense) / 100f));
         }
         gameManager.UpdateHpBar();
+
+        Die();      // 피격 이후 체력이 0 이하면 Game Over
     }
 
     private void RecoverHp()
     {
+        // 1초마다 체력 회복
+
         if (_stat.HpRecovery == 0)
         {
             return;
         }
 
-        hpRecoveryCooltime += Time.deltaTime;
-
-        if (hpRecoveryCooltime > 1f)
+        if (_stat.Heal(_stat.HpRecovery))
         {
-            // 1초마다 체력 회복
-            _stat.Heal(_stat.HpRecovery);
-            hpRecoveryCooltime = 0;
+            gameManager.UpdateHpBar();
         }
-        gameManager.UpdateHpBar();
     }
 
     private void Die()
@@ -119,7 +110,6 @@ public class Player : Character
 
     public void UpdataAttackSpeed()
     {
-        Debug.LogFormat("Attack Speed Up {0}", _stat.AttackSpeed);
         weaponSystem.Weapon.UpdateAttackCooltime();
         animator.SetFloat("attackSpeed", _stat.AttackSpeed);
     }
