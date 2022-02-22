@@ -44,6 +44,7 @@ public class Katana : Weapon
 
     public override void Attack(int attackType)
     {
+        // 수평 범위 collider 활성화
         attackCollider.transform.rotation = Quaternion.Euler(
             attackCollider.transform.rotation.eulerAngles.x, 
             attackCollider.transform.rotation.eulerAngles.y, 
@@ -54,6 +55,7 @@ public class Katana : Weapon
 
     public override void AttackOnAir(int attackType)
     {
+        // 수직 범위 collider 활성화
         attackCollider.transform.rotation = Quaternion.Euler(
             attackCollider.transform.rotation.eulerAngles.x, 
             attackCollider.transform.rotation.eulerAngles.y, 
@@ -64,6 +66,8 @@ public class Katana : Weapon
 
     public override void AttackSuccess(Collider collider)
     {
+        // 공격 범위 collider에서 호출
+        
         // 더블공격
         if (Random.value < stat.DoublePercent)
         {
@@ -83,11 +87,11 @@ public class Katana : Weapon
     
     public override void UpgradeAttackRange(int level = 1)
     {
-        // Level당 20% 씩 범위 증가
+        // Level당 10% 씩 범위 증가
         for (int i = 0; i < level; i++)
         {
-            attackCollider.center += new Vector3(0, 0.1f, 0);
-            attackCollider.size += new Vector3(0, 0.2f, 0);
+            attackCollider.size += new Vector3(attackCollider.size.x * 0.1f, 0, attackCollider.size.z * 0.1f);
+            attackCollider.center = new Vector3(0, 0, attackCollider.size.z / 2f);
         }
     }
 

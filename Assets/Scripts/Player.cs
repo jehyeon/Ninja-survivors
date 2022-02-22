@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : Character
 {
     private GameManager gameManager;
+    private WeaponSystem weaponSystem;
+    private Weapon weapon;
 
     private Exp _exp;
 
@@ -18,6 +20,7 @@ public class Player : Character
         base.Awake();
 
         gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        weaponSystem = GetComponent<WeaponSystem>();
     }
 
     private void Start()
@@ -33,6 +36,9 @@ public class Player : Character
         _stat.AttackSpeed = 1;
 
         gameManager.UpdateHpBar();
+        
+        // 무기 데이터 가져오기
+        weapon = weaponSystem.Weapon;
     }
 
     private void Update()
@@ -117,6 +123,6 @@ public class Player : Character
 
     public void UpdateAttackRange()
     {
-        // sword.UpgradeAttackRange(_stat.AttackRange);
+        weapon.UpgradeAttackRange(_stat.AttackRange);
     }
 }
