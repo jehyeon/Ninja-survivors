@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
 
     private Transform playerChestTransform;
 
+    // temp
+    public bool isKatana;
+
     private void Start()
     {
         cc = GetComponent<CharacterController>();
@@ -224,11 +227,14 @@ public class PlayerController : MonoBehaviour
         float cameraRotationX = Mathf.Clamp(rotate, -20, 90);
         cameraRotate.GetComponent<PlayerCamera>().Rotate(cameraRotationX);
         
-        playerChestTransform.rotation = Quaternion.Euler(
-            playerChestTransform.rotation.eulerAngles.x, 
-            playerChestTransform.rotation.eulerAngles.y, 
-            cameraRotationX * -1f - 60f
-        );
+        if (isKatana)
+        {
+            playerChestTransform.rotation = Quaternion.Euler(
+                playerChestTransform.rotation.eulerAngles.x, 
+                playerChestTransform.rotation.eulerAngles.y, 
+                cameraRotationX * -1f - 60f
+            );
+        }
     }
 
     private void Jumping()
