@@ -213,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   img_abilityImage: {fileID: 3435756863667924566}
   text_abilityName: {fileID: 8279553273395148218}
+  abilityShineFx: {fileID: 4740952602159629104}
 --- !u!1 &8279553273395148216
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,10 +443,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: AbilityFXShine
       objectReference: {fileID: 0}
+    - target: {fileID: 3904486207128971766, guid: 7e99bd80bc789cb4fbafdc09eeb3708e, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e99bd80bc789cb4fbafdc09eeb3708e, type: 3}
 --- !u!224 &4740952602159629108 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3904486207128971762, guid: 7e99bd80bc789cb4fbafdc09eeb3708e, type: 3}
+  m_PrefabInstance: {fileID: 8639235324819925702}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4740952602159629104 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3904486207128971766, guid: 7e99bd80bc789cb4fbafdc09eeb3708e, type: 3}
   m_PrefabInstance: {fileID: 8639235324819925702}
   m_PrefabAsset: {fileID: 0}

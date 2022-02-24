@@ -8,6 +8,8 @@ using TMPro;
 public class UI : MonoBehaviour
 {
     private GameObject go_abilityPopups;
+    [SerializeField]
+    private ParticleSystem particle_levelUp;
 
     // 체력
     private Slider go_HpBar;
@@ -49,11 +51,16 @@ public class UI : MonoBehaviour
     public void OpenAbilityPopups()
     {
         go_abilityPopups.SetActive(true);
+        particle_levelUp.gameObject.SetActive(true);
+        particle_levelUp.Play();
     }
 
     public void CloseAbilityPopups()
     {
         go_abilityPopups.SetActive(false);
+        particle_levelUp.gameObject.SetActive(false);
+        particle_levelUp.Stop();
+        ClearAbilityPopups();
     }
 
     public void FillAbilityPopups(List<Ability> abilities)
@@ -62,6 +69,15 @@ public class UI : MonoBehaviour
         for (int i = 0; i < abilities.Count; i++)
         {
             go_abilityPopups.transform.GetChild(i).GetComponent<AbilityPopup>().Set(abilities[i]);
+        }
+    }
+
+    private void ClearAbilityPopups()
+    {
+        // 기본적으로 ability.Length == 3
+        for (int i = 0; i < 3; i++)
+        {
+            go_abilityPopups.transform.GetChild(i).GetComponent<AbilityPopup>().Clear();
         }
     }
 

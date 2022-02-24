@@ -41,7 +41,7 @@ public class AbilityManager {
         }
 
         // 선택된 어빌리티 리스트 셔플 후 abilityCount만큼 추출 (중복 X)
-        Shuffle(selected);
+        selected = Shuffle(selected);
         List<Ability> abilities = new List<Ability>();
         foreach (int abilityId in selected.GetRange(0, abilityCount))
         {
@@ -91,10 +91,8 @@ public class AbilityManager {
         abilities.AddRange(GetAbilityByType("Rare", rareCount));
         abilities.AddRange(GetAbilityByType("Uncommon", uncommonCount));
         abilities.AddRange(GetAbilityByType("Common", commonCount));
-        // var matches = dictionary.Where(kvp => !kvp.Value.BooleanProperty);
-        // Debug.Log(String.Join(", ", abilities.ToArray()));   // <- return; 인 항목도 List에 추가되는 지 확인하기
 
-        return abilities;
+        return Shuffle(abilities);
     }
 
     private void SeperateAbility()
@@ -125,15 +123,17 @@ public class AbilityManager {
         }
     }
 
-    private void Shuffle(List<int> list)
+    private List<T> Shuffle<T>(List<T> list)
     {
         for (int i = 0; i < list.Count; i++)
         {
             int newIndex = UnityEngine.Random.Range(0, list.Count);
-            int temp = list[i];
+            T temp = list[i];
             list[i] = list[newIndex];
             list[newIndex] = temp;
         }
+
+        return list;
     }
 
     public void DecreaseAbilityMaxCount(int abilityId)
