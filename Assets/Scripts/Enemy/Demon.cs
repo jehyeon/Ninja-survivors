@@ -17,7 +17,7 @@ public class Demon : RangeEnemy
         attackDelay = .5f;
         _stat.Hp = 20;
         _stat.Speed = 6;
-        _stat.Damage = 1;
+        _stat.Damage = 30;
 
         exp = 50;
     }

@@ -28,6 +28,10 @@ public class SpawnSystem : MonoBehaviour
     private LizardFactory lizardFactory;
     [SerializeField]
     private WolfFactory wolfFactory;
+    [SerializeField]
+    private BeholderFactory beholderFactory;
+    [SerializeField]
+    private DemonFactory demonFactory;
 
     private float time = 0f;
     public int enemyCount = 0;
@@ -45,7 +49,7 @@ public class SpawnSystem : MonoBehaviour
     private void Start()
     {
         // 스폰 테이블
-        spawnTable[0] = new string[] {"Wolf", "Lizard"};
+        spawnTable[0] = new string[] {"Wolf", "Lizard", "Beholder"};
         // spawnTable[0] = new string[] {"Crab"};
         // spawnTable[1] = new string[] {"Rat"};
         // spawnTable[2] = new string[] {"Rat", "Crab"};
@@ -111,8 +115,12 @@ public class SpawnSystem : MonoBehaviour
             case "Wolf":
                 enemy = wolfFactory.CreateEnemy("default");
                 break;
-            // Demon (원거리, 공중)
-            // Beholder (원거리, 공중)
+            case "Beholder":
+                enemy = beholderFactory.CreateEnemy("default");
+                break;
+            case "Demon":
+                enemy = demonFactory.CreateEnemy("default");
+                break;
             // Chest (근거리, 나중에)
         }
         
