@@ -14,7 +14,7 @@ public class Enemy : Character
     protected float attackRange;
     protected bool canFly;    // 공중 유닛이면 true
     protected int exp;
-    protected float attackCooltime;     // 공격 애니메이션 속도와 동일하게 하위 클래스에서 할당
+    protected float attackCooltime;     // 실제 공격 애니메이션 속도보다 높게
     protected float hitCooltime = 0.733f;   // 피격 애니메이션 속도 (다르면 하위 클래스에서 재할당)
     protected Vector3 dir;
     public Collider enemyCollider;
