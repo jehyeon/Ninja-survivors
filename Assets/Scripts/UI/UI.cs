@@ -21,17 +21,22 @@ public class UI : MonoBehaviour
     // 능력
     private AbilityList abilityList;
 
+    // 게임 카운트
+    private TextMeshProUGUI text_playTime;
+
     // 게임 오버
     private GameObject gameOverUI;
 
     void Awake()
     {
+        // 순서 중요
         go_abilityPopups = transform.GetChild(0).gameObject;
         go_HpBar = transform.GetChild(1).GetComponent<Slider>();
         text_hpBar = go_HpBar.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
         go_ExpBar = transform.GetChild(2).GetComponent<Slider>();
         abilityList = transform.GetChild(3).GetComponent<AbilityList>();
-        gameOverUI = transform.GetChild(4).gameObject;
+        text_playTime = transform.GetChild(4).GetChild(1).GetComponent<TextMeshProUGUI>();
+        gameOverUI = transform.GetChild(5).gameObject;
     }
 
     // 체력
@@ -102,5 +107,12 @@ public class UI : MonoBehaviour
     public void OpenGameOverUI()
     {
         gameOverUI.SetActive(true);
+    }
+
+    public void UpdatePlayTime(int playTime)
+    {
+        int minute = playTime / 60;
+        int second = playTime % 60;
+        text_playTime.text = string.Format("{0:D2}:{1:D2}", minute, second);
     }
 }

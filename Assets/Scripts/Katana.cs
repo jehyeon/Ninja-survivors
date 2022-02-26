@@ -17,7 +17,7 @@ public class Katana : Weapon
         attackCollider = attackRange.GetComponent<BoxCollider>();
         
         attackCollider.enabled = false;
-        UpdateAttackCooltime();
+        // UpdateAttackCooltime();
     }
 
     private void Attack(Collider other)
@@ -108,6 +108,11 @@ public class Katana : Weapon
     public override void UpdateAttackCooltime()
     {
         // katana default attack animation speed is 1.133s
+        if (stat == null)
+        {
+            Start();
+        }
+
         attackCooltime = 1.133f / stat.AttackSpeed;
     }
 }

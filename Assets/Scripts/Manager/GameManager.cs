@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private AbilityManager abilityManager;
     private IntervalAbilityCommand intervalAbilityCommand;
     private AttackAbilityCommand attackAbilityCommand;
+    private int playTime;
 
     private void Awake()
     {
@@ -21,6 +22,10 @@ public class GameManager : MonoBehaviour
 
         UnPause();
         Cursor.lockState = CursorLockMode.Locked;   // 마우스 고정
+
+        // 플레이 타임
+        playTime = 0;
+        InvokeRepeating("UpdatePlayTime", 0f, 1f);
     }
 
     //////////////////////////////////////////////////////////
@@ -36,6 +41,12 @@ public class GameManager : MonoBehaviour
     {
         // !!! temp
         Time.timeScale = 1;
+    }
+
+    private void UpdatePlayTime()
+    {
+        ui.UpdatePlayTime(playTime);
+        playTime += 1;
     }
 
     // Player
