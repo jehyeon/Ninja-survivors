@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,16 +8,18 @@ using TMPro;
 
 public class UI : MonoBehaviour
 {
+    private PlayerController playerController;      // for mouse sensitivity;
+    private SoundManager soundManager;              // for set volume
     private GameObject go_abilityPopups;
     [SerializeField]
     private ParticleSystem particle_levelUp;
 
     // 체력
-    private Slider go_HpBar;
+    private Slider slider_HpBar;
     private TextMeshProUGUI text_hpBar;
 
     // 경험치
-    private Slider go_ExpBar;
+    private Slider slider_ExpBar;
 
     // 능력
     private AbilityList abilityList;
@@ -27,29 +30,51 @@ public class UI : MonoBehaviour
     // 게임 오버
     private GameObject gameOverUI;
 
+    // 옵션
+    private GameObject optionUI;
+    [SerializeField]
+    private Slider slider_mouseSensitivity;
+    [SerializeField]
+    private GameObject go_mouseSensitivityInputField;
+    [SerializeField]
+    private Slider slider_masterVolume;
+    [SerializeField]
+    private Slider slider_BGMVolume;
+    [SerializeField]
+    private Slider slider_SFXVolume;
+
+    private bool optionMode = false;
+    public bool OptionMode { get { return optionMode; } }
+    private bool editingMouseSensitivity;
+
     void Awake()
     {
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        soundManager = GameObject.Find("Sound Manager").GetComponent<SoundManager>();
         // 순서 중요
         go_abilityPopups = transform.GetChild(0).gameObject;
-        go_HpBar = transform.GetChild(1).GetComponent<Slider>();
-        text_hpBar = go_HpBar.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
-        go_ExpBar = transform.GetChild(2).GetComponent<Slider>();
+        slider_HpBar = transform.GetChild(1).GetComponent<Slider>();
+        text_hpBar = slider_HpBar.transform.GetChild(3).GetComponent<TextMeshProUGUI>();
+        slider_ExpBar = transform.GetChild(2).GetComponent<Slider>();
         abilityList = transform.GetChild(3).GetComponent<AbilityList>();
         text_playTime = transform.GetChild(4).GetChild(1).GetComponent<TextMeshProUGUI>();
         gameOverUI = transform.GetChild(5).gameObject;
+
+        // 옵션
+        optionUI = transform.GetChild(6).gameObject;
     }
 
     // 체력
     public void UpdateHpBar(int newHp, int maxHp)
     {
-        go_HpBar.value = (float)newHp / (float)maxHp;
+        slider_HpBar.value = (float)newHp / (float)maxHp;
         text_hpBar.text = newHp + " / " + maxHp;
     }
 
     // 경험치
     public void UpdateExpBar(float now)
     {
-        go_ExpBar.value = now;
+        slider_ExpBar.value = now;
     }
 
     // 어빌리티 (레벨 업 관련)
@@ -109,10 +134,91 @@ public class UI : MonoBehaviour
         gameOverUI.SetActive(true);
     }
 
+    // 타이머
     public void UpdatePlayTime(int playTime)
     {
         int minute = playTime / 60;
         int second = playTime % 60;
         text_playTime.text = string.Format("{0:D2}:{1:D2}", minute, second);
+    }
+
+    // 게임 옵션
+    public void OpenOptionUI()
+    {
+        optionUI.SetActive(true);
+        optionMode = true;
+    }
+
+    public void CloseOptionUI()
+    {
+        optionUI.SetActive(false);
+        optionMode = false;
+    }
+    public void SetMouseSensitivity(float lookSensitivity)
+    {
+        go_mouseSensitivityInputField.GetComponent<TMP_InputField>().text = string.Format("{0:0.0#}", lookSensitivity);
+        slider_mouseSensitivity.value = lookSensitivity / 15f;
+        playerController.ChangeLookSensitivity(lookSensitivity);
+    }
+
+    public void ChangeSliderMouseSensitivity()
+    {
+        if (editingMouseSensitivity)
+        {
+            // 마우스 감도 input 작성 중에는 slider 설정 감도 무시
+            return;
+        }
+
+        // 마우스 감도 범위: 0.01 ~ 15.00;
+        float lookSensitivity = (float)(Math.Truncate(slider_mouseSensitivity.value * 15f * 100) / 100);
+
+        if (lookSensitivity == 0f)
+        {
+            lookSensitivity = 0.01f;
+        }
+
+        // slider_mouseSensitivity;
+
+        go_mouseSensitivityInputField.GetComponent<TMP_InputField>().text = string.Format("{0:0.0#}", lookSensitivity);
+        playerController.ChangeLookSensitivity(lookSensitivity);
+    }
+
+    public void ChangeInputMouseSensitivity()
+    {
+        editingMouseSensitivity = false;
+
+        float lookSensitivity = float.Parse(go_mouseSensitivityInputField.GetComponent<TMP_InputField>().text);
+
+        if (lookSensitivity > 15f)
+        {
+            lookSensitivity = 15f;
+        }
+        if (lookSensitivity < 0.01f)
+        {
+            lookSensitivity = 0.01f;
+        }
+        go_mouseSensitivityInputField.GetComponent<TMP_InputField>().text = string.Format("{0:0.0#}", lookSensitivity);
+        slider_mouseSensitivity.value = lookSensitivity / 15f;
+        playerController.ChangeLookSensitivity(lookSensitivity);
+    }
+
+    public void StartEditingMouseSensitivity()
+    {
+        editingMouseSensitivity = true;
+    }
+
+    public void ChangeMasterVolume()
+    {
+        soundManager.SetVolume("Master", slider_masterVolume.value);
+    }
+
+    public void ChangeBGMVolume()
+    {
+        soundManager.SetVolume("BGM", slider_BGMVolume.value);
+    }
+
+    public void ChangeSFXVolume()
+    {
+        soundManager.SetVolume("SFX", slider_SFXVolume.value);
     }
 }

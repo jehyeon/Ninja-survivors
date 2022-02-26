@@ -28,6 +28,28 @@ public class GameManager : MonoBehaviour
         InvokeRepeating("UpdatePlayTime", 0f, 1f);
     }
 
+    private void Start()
+    {
+        // 시작 옵션 (load로 수정 예정)
+        // !!! temp
+        ui.SetMouseSensitivity(10f);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (ui.OptionMode)
+            {
+                CloseOption();
+            }
+            else
+            {
+                OpenOption();
+            }
+        }
+    }
+
     //////////////////////////////////////////////////////////
     // Game 진행 관련 --------------------------------------- //
     //////////////////////////////////////////////////////////
@@ -35,12 +57,16 @@ public class GameManager : MonoBehaviour
     {
         // !!! temp
         Time.timeScale = 0;
+
+        Cursor.lockState = CursorLockMode.None; // 마우스 고정해제
     }
 
     private void UnPause()
     {
         // !!! temp
         Time.timeScale = 1;
+
+        Cursor.lockState = CursorLockMode.Locked;   // 마우스 고정
     }
 
     private void UpdatePlayTime()
@@ -59,7 +85,6 @@ public class GameManager : MonoBehaviour
     {
         Pause();
         ui.OpenGameOverUI();
-        Cursor.lockState = CursorLockMode.None;
     }
 
     //////////////////////////////////////////////////////////
@@ -84,8 +109,6 @@ public class GameManager : MonoBehaviour
         ui.OpenAbilityPopups();
         ui.FillAbilityPopups(abilityManager.GetRandomAbility());
         Pause();    // 일시 정지
-        
-        Cursor.lockState = CursorLockMode.None;     // 마우스 고정 해제
     }
 
     public void SelectAbility(Ability ability)
@@ -120,7 +143,6 @@ public class GameManager : MonoBehaviour
         // !!! 어빌리티 합성 시스템 추가
 
         UnPause();  // 일시정지 해제
-        Cursor.lockState = CursorLockMode.Locked;   // 마우스 고정
     }
 
     // Stat 어빌리티
@@ -171,5 +193,22 @@ public class GameManager : MonoBehaviour
     private void AddAttackAbility(Ability ability)
     {
         attackAbilityCommand.AddAbility(ability);
+    }
+
+
+    //////////////////////////////////////////////////////////
+    // Settings ------------------------------------------- //
+    //////////////////////////////////////////////////////////
+    private void OpenOption()
+    {
+        // 옵션 창 열고 게임 정지
+        ui.OpenOptionUI();
+        Pause();
+    }
+
+    public void CloseOption()
+    {
+        ui.CloseOptionUI();
+        UnPause();
     }
 }

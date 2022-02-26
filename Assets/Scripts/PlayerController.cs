@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float gravity;
-    public float lookSensitivity;   // 감도
+    private float lookSensitivity;   // 감도
     private Vector3 moveDir = Vector3.zero;
 
     private Stat stat;
@@ -60,12 +60,22 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0)
+        {
+            // 게임 정지 중에는 입력 무시
+            return;
+        }
         Move();
         Attack();
     }
 
     private void LateUpdate()
     {
+        if (Time.timeScale == 0)
+        {
+            // 게임 정지 중에는 입력 무시
+            return;
+        }
         Rotate();
     }
 
@@ -302,5 +312,11 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(weaponSystem.Weapon.AttackCoolTime);
         canAttack = true;
+    }
+
+    // 설정
+    public void ChangeLookSensitivity(float newSensitivity)
+    {
+        lookSensitivity = newSensitivity;
     }
 }
